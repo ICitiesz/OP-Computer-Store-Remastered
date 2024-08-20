@@ -4,11 +4,67 @@
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>4d809936-a53c-4055-9389-0afc770248d5</UserSecretsId>
+        <BaseIntermediateOutputPath>..\output\obj\</BaseIntermediateOutputPath>
+        <IntermediateOutputPath>$(BaseIntermediateOutputPath)\$(Configuration)\</IntermediateOutputPath>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <Optimize>true</Optimize>
+        <BaseIntermediateOutputPath>..\output\obj\</BaseIntermediateOutputPath>
+        <IntermediateOutputPath>$(BaseIntermediateOutputPath)$(Configuration)\</IntermediateOutputPath>
+        <OutputPath>..\output\bin\Debug\</OutputPath>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Realse' ">
+        <Optimize>true</Optimize>
+        <BaseIntermediateOutputPath>..\output\obj\</BaseIntermediateOutputPath>
+        <IntermediateOutputPath>$(BaseIntermediateOutputPath)$(Configuration)\</IntermediateOutputPath>
+        <OutputPath>..\output\bin\Release\</OutputPath>
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Autofac" Version="8.0.0"/>
+        <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="9.0.0"/>
+        <PackageReference Include="AutoMapper" Version="13.0.1"/>
+        <PackageReference Include="LanguageExt.Core" Version="4.4.9" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.7"/>
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.7"/>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.7"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.7"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.7">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.7">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="8.0.7"/>
+        <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.2"/>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
+        <PackageReference Include="Ulid" Version="1.3.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Update="Resources\Code-Messages.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>Code-Messages.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="Resources\Code-Messages.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Code-Messages.resx</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <_ContentIncludedByDefault Remove="obj\opcs.csproj.nuget.dgspec.json"/>
+        <_ContentIncludedByDefault Remove="obj\project.assets.json"/>
+        <_ContentIncludedByDefault Remove="obj\project.packagespec.json"/>
     </ItemGroup>
 
 </Project>
