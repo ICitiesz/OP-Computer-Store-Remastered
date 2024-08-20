@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root"
+                xmlns="">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <data name="opcs.debug.test_message" xml:space="preserve">
+        <value>Test Message</value>
+    </data>
+    <data name="opcs.error.role.not_exist" xml:space="preserve">
+        <value>Role not exist!</value>
+    </data>
+    <data name="opcs.error.supplier.not_exist" xml:space="preserve">
+        <value>Supplier not exist!</value>
+    </data>
+    <data name="opcs.error.request.invalid_property" xml:space="preserve">
+        <value>Invalid property!</value>
+    </data>
+    <data name="opcs.error.request.invalid_endpoint" xml:space="preserve">
+        <value>Not found!</value>
+    </data>
+    <data name="opcs.error.request.no_such_property" xml:space="preserve">
+        <value>No such property!</value>
+    </data>
+    <data name="opcs.error.request.empty_property" xml:space="preserve">
+        <value>Empty property!</value>
+    </data>
+    <data name="opcs.error.request.value_not_equal" xml:space="preserve">
+        <value>Value is not equal!</value>
+    </data>
+    <data name="opcs.error.request.property_type_not_equal" xml:space="preserve">
+        <value>Property type is not equal!</value>
+    </data>
+    <data name="opcs.error.request.invalid_property_type" xml:space="preserve">
+        <value>Property is not {0} type!</value>
+    </data>
+    <data name="opcs.info.user.registration_successful" xml:space="preserve">
+        <value>Registration success!</value>
+    </data>
+    <data name="opcs.error.user.user_exist" xml:space="preserve">
+        <value>User already exist!</value>
+    </data>
+    <data name="opcs.info.user.login_successful" xml:space="preserve">
+        <value>Login success!</value>
+    </data>
+    <data name="opcs.error.user.login_failed" xml:space="preserve">
+        <value>Invalid username/email or password!</value>
+    </data>
+</root>
