@@ -21,14 +21,14 @@ namespace opcs.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Code_Messages {
+    internal class CodeMessages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Code_Messages() {
+        internal CodeMessages() {
         }
         
         /// <summary>
@@ -38,7 +38,7 @@ namespace opcs.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("opcs.Resources.Code-Messages", typeof(Code_Messages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("opcs.Resources.CodeMessages", typeof(CodeMessages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -65,6 +65,42 @@ namespace opcs.Resources {
         internal static string opcs_debug_test_message {
             get {
                 return ResourceManager.GetString("opcs.debug.test_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid username/email or password!.
+        /// </summary>
+        internal static string opcs_error_auth_login_failed {
+            get {
+                return ResourceManager.GetString("opcs.error.auth.login_failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unauthorized!.
+        /// </summary>
+        internal static string opcs_error_auth_unauthorized {
+            get {
+                return ResourceManager.GetString("opcs.error.auth.unauthorized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forbidden access!.
+        /// </summary>
+        internal static string opcs_error_permission_forbidden_access {
+            get {
+                return ResourceManager.GetString("opcs.error.permission.forbidden_access", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm password and password must be the same!.
+        /// </summary>
+        internal static string opcs_error_request_confirm_password_not_equal {
+            get {
+                return ResourceManager.GetString("opcs.error.request.confirm_password_not_equal", resourceCulture);
             }
         }
         
@@ -105,15 +141,6 @@ namespace opcs.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No such property!.
-        /// </summary>
-        internal static string opcs_error_request_no_such_property {
-            get {
-                return ResourceManager.GetString("opcs.error.request.no_such_property", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Property type is not equal!.
         /// </summary>
         internal static string opcs_error_request_property_type_not_equal {
@@ -123,7 +150,7 @@ namespace opcs.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value is not equal!.
+        ///   Looks up a localized string similar to Value must be equal!.
         /// </summary>
         internal static string opcs_error_request_value_not_equal {
             get {
@@ -150,15 +177,6 @@ namespace opcs.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid username/email or password!.
-        /// </summary>
-        internal static string opcs_error_user_login_failed {
-            get {
-                return ResourceManager.GetString("opcs.error.user.login_failed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to User already exist!.
         /// </summary>
         internal static string opcs_error_user_user_exist {
@@ -170,18 +188,27 @@ namespace opcs.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Login success!.
         /// </summary>
-        internal static string opcs_info_user_login_successful {
+        internal static string opcs_info_auth_login_successful {
             get {
-                return ResourceManager.GetString("opcs.info.user.login_successful", resourceCulture);
+                return ResourceManager.GetString("opcs.info.auth.login_successful", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Registration success!.
         /// </summary>
-        internal static string opcs_info_user_registration_successful {
+        internal static string opcs_info_auth_registration_successful {
             get {
-                return ResourceManager.GetString("opcs.info.user.registration_successful", resourceCulture);
+                return ResourceManager.GetString("opcs.info.auth.registration_successful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Session refreshed!.
+        /// </summary>
+        internal static string opcs_info_auth_session_refresh {
+            get {
+                return ResourceManager.GetString("opcs.info.auth.session_refresh", resourceCulture);
             }
         }
     }

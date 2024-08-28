@@ -1,3 +1,6 @@
+using LanguageExt;
+using opcs.App.Data.Dto.General;
+
 namespace opcs.App.Service.Security.Interface;
 
 public interface ISecurityService
@@ -8,5 +11,13 @@ public interface ISecurityService
 
     string GenerateUserId();
 
-    string GenerateToken(Entity.User.User user);
+    string GenerateAccessToken(Entity.User.User user);
+
+    RefreshTokenDto GenerateUserRefreshToken(string userId, bool isRefreshAuth = false);
+
+    (bool, Entity.User.User?) ValidateAccessToken(string expiredAccessToken);
+
+    bool ValidateRefreshToken(string userId, string providedRefreshToken);
+
+    bool HasSession(string userId);
 }

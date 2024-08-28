@@ -11,7 +11,11 @@ public class OpcsExceptionHandler : IExceptionHandler
         var responseStatusCode = exception is OpcsException opcsException
             ? opcsException.ResponseStatusCode
             : StatusCodes.Status500InternalServerError;
-        var response = new Response(null, statusCode: responseStatusCode, message: exception.Message);
+        var response = new Response
+        {
+            statusCode = responseStatusCode,
+            message = exception.Message
+        };
 
         httpContext.Response.StatusCode = responseStatusCode;
         await httpContext.Response.WriteAsJsonAsync(response.ToJson(), cancellationToken);

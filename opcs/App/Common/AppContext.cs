@@ -9,7 +9,7 @@ public static class AppContext
 
     static AppContext()
     {
-        ResourceManager = new ResourceManager("opcs.Resources.Code-Messages", Assembly.GetExecutingAssembly());
+        ResourceManager = new ResourceManager("opcs.Resources.CodeMessages", Assembly.GetExecutingAssembly());
     }
 
     public static string GetCodeMessage(string code)

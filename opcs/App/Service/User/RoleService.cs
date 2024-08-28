@@ -7,19 +7,31 @@ using opcs.App.Service.User.Interface;
 
 namespace opcs.App.Service.User;
 
-public class RoleService(IRoleRepository iRoleRepository) : IRoleService
+public class RoleService(IRoleRepository roleRepository) : IRoleService
 {
     public List<RoleDto> GetAllRole()
     {
-        var roles = iRoleRepository.GetAllRolesAsync().Result;
+        var roles = roleRepository.GetAllRolesAsync().Result;
 
         return ObjectMapper.GetMapper().Map<List<RoleDto>>(roles);
     }
 
     public Option<RoleDto> GetRoleById(int id)
     {
-        var role = iRoleRepository.GetRoleByIdAsync(id).Result;
+        var role = roleRepository.GetRoleByIdAsync(id).Result;
 
         return ObjectMapper.GetMapper().Map<RoleDto>(role);
+    }
+
+    public bool HasUserRole(string userId)
+    {
+        return roleRepository.HasUserRole(userId).Result;
+    }
+
+    public Option<RoleDto> GetUserRole(string userId)
+    {
+        var result =  roleRepository.GetUserRole(userId).Result;
+
+        return result is not null ? ObjectMapper.GetMapper().Map<RoleDto>(result) : new Option<RoleDto>();
     }
 }

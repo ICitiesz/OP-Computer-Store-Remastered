@@ -1,31 +1,36 @@
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using opcs.App.Data;
 using opcs.App.Service.Supplier.Interface;
-using AppContext = opcs.App.Common.AppContext;
+using opcs.Resources;
 
 namespace opcs.App.Controller.Supply;
 
 [Route("supplier")]
-[ApiController]
+[ApiController, Authorize]
 public class SupplierController(ISupplierService supplierService)
     : ControllerBase
 {
     [HttpGet("getAll")]
     public IActionResult GetAllSupplier()
     {
-        return new Response(supplierService.GetAllSupplier());
+        return new Response
+        {
+            dto = supplierService.GetAllSupplier()
+        };
     }
 
-    [HttpGet("")]
+    [HttpGet]
     public IActionResult GetSupplierById([FromQuery(Name = "id")] int id)
     {
         return supplierService.GetSupplierById(id).Match(
-            Some: result => new Response(result),
-            None: () => new Response(
-                null,
-                statusCode: StatusCodes.Status500InternalServerError,
-                message: AppContext.GetCodeMessage("opcs.error.supplier.not_exist")
-            )
+            Some: result => new Response { dto = result},
+            None: () => new Response
+            {
+                statusCode = StatusCodes.Status400BadRequest,
+                message = CodeMessages.opcs_error_supplier_not_exist
+            }
         );
     }
 }

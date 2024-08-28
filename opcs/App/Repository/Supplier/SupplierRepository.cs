@@ -7,7 +7,7 @@ namespace opcs.App.Repository.Supplier;
 
 public class SupplierRepository(AppDbContext appDbContext) : ISupplierRepository
 {
-    public async Task<List<Model.Supplier.Supplier>> GetAllAsync()
+    public async Task<List<Entity.Supplier.Supplier>> GetAllAsync()
     {
         var stopWatch = new Stopwatch();
 
@@ -22,7 +22,7 @@ public class SupplierRepository(AppDbContext appDbContext) : ISupplierRepository
         //return await appDbContext.Supplier.ToListAsync();
     }
 
-    public async Task<Model.Supplier.Supplier?> GetByIdAsync(long id)
+    public async Task<Entity.Supplier.Supplier?> GetByIdAsync(long id)
     {
         return await appDbContext.Supplier.FindAsync(id);
     }

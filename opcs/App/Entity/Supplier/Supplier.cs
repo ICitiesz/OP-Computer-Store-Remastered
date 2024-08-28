@@ -1,9 +1,9 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace opcs.App.Model.Supplier;
+namespace opcs.App.Entity.Supplier;
 
 [Table("t_supplier")]
-public class Supplier
+public class Supplier : AuditBase
 {
     [Column("supplier_id", TypeName = "bigint")]
     public long SupplierId { get; set; }

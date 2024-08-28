@@ -14,9 +14,16 @@ public class UserRepository(AppDbContext dbContext): IUserRepository
         throw new NotImplementedException();
     }
 
-    public Task<Entity.User.User?> GetUserByUuidCharAsync(string uuidChar)
+    public async Task<Entity.User.User?> GetUserByUserId(string userId)
     {
-        throw new NotImplementedException();
+        var user = await dbContext.User.FromSqlInterpolated(
+            $"""
+             SELECT *
+             FROM t_user tUser
+             WHERE tUser.user_id = {userId} LIMIT 1
+             """).ToArrayAsync();
+
+        return !user.IsNullOrEmpty() ? user.First() : null;
     }
 
     public async Task<Entity.User.User?> GetUserByUsernameOrEmail(string usernameOrEmail)
@@ -38,13 +45,13 @@ public class UserRepository(AppDbContext dbContext): IUserRepository
         return await dbContext.SaveChangesAsync() > 0 ? result.Entity : null;
     }
 
-    public bool IsUserExistByUuidChar(string uuidChar)
-    {
-        return dbContext.User.Exists(user => user.UserId == uuidChar);
-    }
-
-    public bool IsUserExistByUsernameEmail(string username, string email)
+    public bool HasUserByUsernameEmail(string username, string email)
     {
         return dbContext.User.Exists(user => user.Username == username && user.Email == email);
+    }
+
+    public bool HasUserByUserId(string userId)
+    {
+        return dbContext.User.Exists(user => user.UserId == userId);
     }
 }

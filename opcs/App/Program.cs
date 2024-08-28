@@ -1,9 +1,7 @@
-using System.Text;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using opcs.App.Common;
 using opcs.App.Common.DI;
@@ -26,6 +24,8 @@ public static class Program
 
     private static void _ConfigureService(WebApplicationBuilder webAppBuilder)
     {
+        var appConfig = new AppConfiguration(webAppBuilder.Configuration);
+
         webAppBuilder.Services.AddExceptionHandler<OpcsExceptionHandler>();
         webAppBuilder.Services.AddProblemDetails();
 
@@ -39,7 +39,7 @@ public static class Program
 
         _ConfigureDependencyInjection(webAppBuilder);
         _ConfigureController(webAppBuilder);
-        _ConfigureAuthentication(webAppBuilder);
+        _ConfigureAuthentication(webAppBuilder, appConfig);
 
         webAppBuilder.Services.AddEndpointsApiExplorer();
         webAppBuilder.Services.AddSwaggerGen();
@@ -72,7 +72,7 @@ public static class Program
         }
     }
 
-    private static void _ConfigureAuthentication(WebApplicationBuilder webAppBuilder)
+    private static void _ConfigureAuthentication(WebApplicationBuilder webAppBuilder, AppConfiguration appConfig)
     {
         webAppBuilder.Services.AddAuthentication(option =>
             {
@@ -80,18 +80,8 @@ public static class Program
             })
             .AddJwtBearer(option =>
             {
-                option.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = webAppBuilder.Configuration["Jwt:Issuer"],
-                    ValidAudience = webAppBuilder.Configuration["Jwt:Audience"],
-                    IssuerSigningKey =
-                        new SymmetricSecurityKey(Encoding.UTF8.GetBytes(webAppBuilder.Configuration["Jwt:SigningKey"]!)),
-                    ClockSkew = TimeSpan.FromSeconds(5)
-                };
+                option.Events = new JwtAuthEvents();
+                option.TokenValidationParameters = appConfig.GetTokenValidationParameters();
             });
     }
 
@@ -137,10 +127,10 @@ public static class Program
         }
 
         webApp.UsePathBase(appConfig.GetBasePath());
-        webApp.UseRouting();
-        webApp.UseHttpsRedirection();
         webApp.UseAuthentication();
         webApp.UseAuthorization();
+        webApp.UseRouting();
+        webApp.UseHttpsRedirection();
         webApp.MapControllers();
 
         return webApp;

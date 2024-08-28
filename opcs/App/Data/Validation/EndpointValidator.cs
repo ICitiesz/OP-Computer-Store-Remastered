@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc.Filters;
 using opcs.App.Common;
+using opcs.Resources;
 using AppContext = opcs.App.Common.AppContext;
 
 namespace opcs.App.Data.Validation;
@@ -14,10 +15,11 @@ public class EndpointValidator(AppConfiguration appConfig) : ActionFilterAttribu
 
         if (!reqPathBase.HasValue || !reqPathBase.Equals(appConfig.GetBasePath()))
         {
-            context.Result = new Response(
-                statusCode: StatusCodes.Status404NotFound,
-                message: AppContext.GetCodeMessage("opcs.error.request.invalid_endpoint")
-            );
+            context.Result = new Response
+            {
+                statusCode = StatusCodes.Status404NotFound,
+                message = CodeMessages.opcs_error_request_invalid_endpoint
+            };
             return;
         }
 
@@ -31,10 +33,11 @@ public class EndpointValidator(AppConfiguration appConfig) : ActionFilterAttribu
                 state => state.Value!.Errors.Select(e => e.ErrorMessage).ToList()
             );
 
-        context.Result = new Response(
-            dto: error,
-            statusCode: StatusCodes.Status400BadRequest,
-            message: AppContext.GetCodeMessage("opcs.error.request.invalid_property")
-        );
+        context.Result = new Response
+        {
+            dto = error,
+            statusCode = StatusCodes.Status400BadRequest,
+            message = CodeMessages.opcs_error_request_invalid_property
+        };
     }
 }

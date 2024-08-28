@@ -47,17 +47,23 @@
     </ItemGroup>
 
     <ItemGroup>
-        <EmbeddedResource Update="Resources\Code-Messages.resx">
+        <EmbeddedResource Update="Resources\CodeMessages.resx">
             <Generator>ResXFileCodeGenerator</Generator>
-            <LastGenOutput>Code-Messages.Designer.cs</LastGenOutput>
+            <LastGenOutput>CodeMessages.Designer.cs</LastGenOutput>
+            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
         </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Update="Resources\Code-Messages.Designer.cs">
+        <Compile Update="Resources\CodeMessages.Designer.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
-            <DependentUpon>Code-Messages.resx</DependentUpon>
+            <DependentUpon>CodeMessages.resx</DependentUpon>
+        </Compile>
+        <Compile Update="CodeMessages.Designer.cs">
+          <DesignTime>True</DesignTime>
+          <AutoGen>True</AutoGen>
+          <DependentUpon>CodeMessages.resx</DependentUpon>
         </Compile>
     </ItemGroup>
 

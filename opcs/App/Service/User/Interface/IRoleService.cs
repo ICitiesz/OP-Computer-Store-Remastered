@@ -9,4 +9,8 @@ public interface IRoleService
     List<RoleDto> GetAllRole();
 
     Option<RoleDto> GetRoleById(int id);
+
+    bool HasUserRole(string userId);
+
+    Option<RoleDto> GetUserRole(string userId);
 }

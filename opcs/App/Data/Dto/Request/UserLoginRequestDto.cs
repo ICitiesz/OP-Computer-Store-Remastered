@@ -3,12 +3,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace opcs.App.Data.Dto.Request;
 
-public class UserLoginRequestDto
-{
+public record UserLoginRequestDto
+(
     [Required]
-    public string UsernameOrEmail { get; set; } = string.Empty;
+    string UsernameOrEmail,
 
     [Required]
     [PasswordPropertyText]
-    public string Password { get; set; } = string.Empty;
-}
+    string Password
+);

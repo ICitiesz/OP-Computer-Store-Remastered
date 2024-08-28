@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace opcs.App.Entity.User;
 
 [Table("t_user")]
-public class User
+public class User : AuditBase
 {
     [Column("id", TypeName = "bigint")]
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]

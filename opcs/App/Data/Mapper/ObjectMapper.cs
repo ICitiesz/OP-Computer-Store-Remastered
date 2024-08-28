@@ -1,8 +1,8 @@
 using AutoMapper;
 using opcs.App.Data.Dto;
 using opcs.App.Data.Dto.General;
-using opcs.App.Model.Supplier;
-using opcs.App.Model.User;
+using opcs.App.Entity.Security;
+using opcs.App.Entity.Supplier;
 
 namespace opcs.App.Data.Mapper;
 

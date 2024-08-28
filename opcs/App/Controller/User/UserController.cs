@@ -13,41 +13,6 @@ namespace opcs.App.Controller.User;
 [ApiController, Produces("application/json")]
 public class UserController(IUserService userService) : ControllerBase
 {
-    [AllowAnonymous]
-    [HttpPost("auth/register")]
-    public IActionResult RegisterUser([FromBody] UserRegisterRequestDto requestDto)
-    {
-        return userService.RegisterUser(requestDto).Match(
-            Some: result => new Response(dto: result, message: AppContext.GetCodeMessage("opcs.info.user.registration_successful")),
-            None: () => new Response(
-                null,
-                statusCode: StatusCodes.Status400BadRequest,
-                message: AppContext.GetCodeMessage("opcs.error.user.user_exist")
-                )
-        );
-    }
-
-
-    [AllowAnonymous]
-    [HttpGet("auth/login")]
-    public IActionResult Login([FromBody] UserLoginRequestDto requestDto)
-    {
-        return userService.LoginUser(requestDto).Match(
-            Some: result =>
-                new Response(dto: result, message: AppContext.GetCodeMessage("opcs.info.user.login_successful")),
-            None: () => new Response(
-                null,
-                statusCode: StatusCodes.Status400BadRequest,
-                message: AppContext.GetCodeMessage("opcs.error.user.login_failed")
-            )
-        );
-    }
-
-    [HttpGet("auth/refresh")]
-    public IActionResult RefreshToken()
-    {
-        return new Response();
-    }
 
     [HttpPost("account/update")]
     public IActionResult UpdateAccount()

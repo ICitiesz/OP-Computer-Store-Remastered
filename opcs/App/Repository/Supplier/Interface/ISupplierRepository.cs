@@ -1,10 +1,8 @@
 namespace opcs.App.Repository.Supplier.Interface;
 
-using opcs.App.Model.Supplier;
-
 public interface ISupplierRepository
 {
-    Task<List<Supplier>> GetAllAsync();
+    Task<List<Entity.Supplier.Supplier>> GetAllAsync();
 
-    Task<Supplier?> GetByIdAsync(long id);
+    Task<Entity.Supplier.Supplier?> GetByIdAsync(long id);
 }
