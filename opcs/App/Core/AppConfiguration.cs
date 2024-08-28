@@ -1,7 +1,7 @@
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
-namespace opcs.App.Common;
+namespace opcs.App.Core;
 
 public class AppConfiguration(IConfiguration configuration)
 {

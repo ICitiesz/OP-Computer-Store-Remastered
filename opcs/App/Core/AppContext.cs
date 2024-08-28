@@ -1,7 +1,7 @@
 using System.Reflection;
 using System.Resources;
 
-namespace opcs.App.Common;
+namespace opcs.App.Core;
 
 public static class AppContext
 {

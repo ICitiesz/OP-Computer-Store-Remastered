@@ -1,13 +1,12 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using opcs.App.Data;
 using opcs.App.Service.Security.Interface;
 using opcs.App.Service.User.Interface;
 using opcs.Resources;
 
-namespace opcs.App.Common.Attribute.Security;
+namespace opcs.App.Core.Attribute;
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
 public class RequiredPermission(string permission) : System.Attribute, IAuthorizationFilter

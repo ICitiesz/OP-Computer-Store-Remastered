@@ -1,7 +1,7 @@
 
 using LanguageExt;
 using Microsoft.IdentityModel.Tokens;
-using opcs.App.Common;
+using opcs.App.Core;
 using opcs.App.Data.Dto.General;
 using opcs.App.Data.Dto.Request;
 using opcs.App.Data.Dto.Response;

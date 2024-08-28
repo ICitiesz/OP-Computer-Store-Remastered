@@ -3,7 +3,7 @@ using opcs.App.Controller.Security;
 using opcs.App.Controller.Supply;
 using opcs.App.Controller.User;
 
-namespace opcs.App.Common.DI;
+namespace opcs.App.Core.DI;
 
 public class ControllerModule : Module
 {

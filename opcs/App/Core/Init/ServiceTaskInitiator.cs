@@ -1,4 +1,4 @@
-namespace opcs.App.Common.Init;
+namespace opcs.App.Core.Init;
 
 public class ServiceTaskInitiator(IServiceProvider serviceProvider, IServiceCollection serviceCollection)
     : IHostedService, ITaskInitiator

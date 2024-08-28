@@ -1,4 +1,4 @@
-namespace opcs.App.Common.Exception;
+namespace opcs.App.Core.Exception;
 
 public class OpcsException(string message) : System.Exception
 {

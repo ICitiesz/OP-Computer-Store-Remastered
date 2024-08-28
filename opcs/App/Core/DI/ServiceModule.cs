@@ -6,7 +6,7 @@ using opcs.App.Service.Supplier.Interface;
 using opcs.App.Service.User;
 using opcs.App.Service.User.Interface;
 
-namespace opcs.App.Common.DI;
+namespace opcs.App.Core.DI;
 
 public class ServiceModule : Module
 {

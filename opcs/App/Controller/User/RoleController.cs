@@ -1,12 +1,11 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using opcs.App.Common;
-using opcs.App.Common.Attribute.Security;
-using opcs.App.Common.Constant;
+using opcs.App.Core.Attribute;
+using opcs.App.Core.Security;
 using opcs.App.Data;
 using opcs.App.Service.User.Interface;
 using opcs.Resources;
-using AppContext = opcs.App.Common.AppContext;
+using AppContext = opcs.App.Core.AppContext;
 
 namespace opcs.App.Controller.User;
 

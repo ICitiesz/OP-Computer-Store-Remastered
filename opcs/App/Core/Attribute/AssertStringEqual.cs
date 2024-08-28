@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.IdentityModel.Tokens;
 using opcs.Resources;
 
-namespace opcs.App.Common.Attribute.Assertion;
+namespace opcs.App.Core.Attribute;
 
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Parameter)]
 public class AssertStringEqual(string compareFieldName, bool ignoreCase = false, string? errorMessage = null) : ValidationAttribute

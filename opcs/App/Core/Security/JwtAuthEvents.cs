@@ -1,12 +1,9 @@
 using Autofac;
-using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Mvc;
 using opcs.App.Service.Security.Interface;
 
-namespace opcs.App.Common;
+namespace opcs.App.Core.Security;
 
 public class JwtAuthEvents : JwtBearerEvents
 {

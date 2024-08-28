@@ -6,7 +6,7 @@ using opcs.App.Repository.Supplier.Interface;
 using opcs.App.Repository.User;
 using opcs.App.Repository.User.Interface;
 
-namespace opcs.App.Common.DI;
+namespace opcs.App.Core.DI;
 
 public class RepositoryModule : Module
 {

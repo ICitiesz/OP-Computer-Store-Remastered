@@ -1,3 +1,3 @@
-namespace opcs.App.Common.Init;
+namespace opcs.App.Core.Init;
 
 public interface ITaskInitiator;

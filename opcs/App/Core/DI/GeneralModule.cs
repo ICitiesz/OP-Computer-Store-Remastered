@@ -1,7 +1,7 @@
 using Autofac;
 using opcs.App.Database;
 
-namespace opcs.App.Common.DI;
+namespace opcs.App.Core.DI;
 
 public class GeneralModule : Module
 {

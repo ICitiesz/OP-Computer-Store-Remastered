@@ -3,10 +3,11 @@ using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using opcs.App.Common;
-using opcs.App.Common.DI;
-using opcs.App.Common.Exception;
-using opcs.App.Common.Init;
+using opcs.App.Core;
+using opcs.App.Core.DI;
+using opcs.App.Core.Exception;
+using opcs.App.Core.Init;
+using opcs.App.Core.Security;
 using opcs.App.Data.Validation;
 using opcs.App.Database;
 

@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
-using opcs.App.Common.Attribute.Assertion;
+using opcs.App.Core.Attribute;
 using opcs.Resources;
 
 namespace opcs.App.Data.Dto.Request;

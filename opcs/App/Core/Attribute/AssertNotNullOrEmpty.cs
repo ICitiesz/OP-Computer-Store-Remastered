@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using opcs.Resources;
 
-namespace opcs.App.Common.Attribute.Assertion;
+namespace opcs.App.Core.Attribute;
 
 [AttributeUsage(AttributeTargets.Property)]
 public class AssertNotNullOrEmpty : ValidationAttribute

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using opcs.App.Data;
 using opcs.App.Data.Dto.Request;
 using opcs.App.Service.User.Interface;
-using AppContext = opcs.App.Common.AppContext;
+using AppContext = opcs.App.Core.AppContext;
 
 namespace opcs.App.Controller.User;
 

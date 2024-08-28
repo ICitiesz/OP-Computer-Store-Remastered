@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Diagnostics;
 using opcs.App.Data;
 
-namespace opcs.App.Common.Exception;
+namespace opcs.App.Core.Exception;
 
 public class OpcsExceptionHandler : IExceptionHandler
 {

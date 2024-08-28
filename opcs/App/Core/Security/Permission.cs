@@ -1,4 +1,4 @@
-namespace opcs.App.Common.Constant;
+namespace opcs.App.Core.Security;
 
 public static class Permission
 {
