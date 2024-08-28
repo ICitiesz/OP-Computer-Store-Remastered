@@ -32,7 +32,8 @@ public class UserRepository(AppDbContext dbContext): IUserRepository
             $"""
              SELECT *
              FROM t_user tUser
-             WHERE tUser.username = {usernameOrEmail} OR tUser.email = {usernameOrEmail} LIMIT 1
+             WHERE BINARY tUser.username = {usernameOrEmail} 
+                OR BINARY tUser.email = {usernameOrEmail} LIMIT 1
              """).ToArrayAsync();
 
         return !user.IsNullOrEmpty() ? user.First() : null;
