@@ -1,6 +1,7 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Mvc.Filters;
+using opcs.App.Core.Security;
 using opcs.App.Data;
 using opcs.App.Service.Security.Interface;
 using opcs.App.Service.User.Interface;
@@ -18,7 +19,7 @@ public class RequiredPermission(string permission) : System.Attribute, IAuthoriz
         var roleService = serviceProvider.GetAutofacRoot().Resolve<IRoleService>();
 
         var userId = context.HttpContext.User.Claims
-            .FirstOrDefault(claim => claim.Type == "userId")?.Value;
+            .FirstOrDefault(claim => claim.Type == JwtAuthClaims.UserId)?.Value;
 
         if (userId is null)
         {

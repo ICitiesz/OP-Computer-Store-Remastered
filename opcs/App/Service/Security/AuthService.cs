@@ -2,6 +2,7 @@
 using LanguageExt;
 using Microsoft.IdentityModel.Tokens;
 using opcs.App.Core;
+using opcs.App.Core.Security;
 using opcs.App.Data.Dto.General;
 using opcs.App.Data.Dto.Request;
 using opcs.App.Data.Dto.Response;
@@ -62,7 +63,7 @@ public class AuthService(
     public bool RevokeRefreshToken(HttpContext httpContext)
     {
         var userId = httpContext.User.Claims
-            .First(claim => claim.Type is "userId").Value;
+            .First(claim => claim.Type is JwtAuthClaims.UserId).Value;
 
         return RevokeRefreshToken(userId);
     }

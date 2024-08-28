@@ -6,6 +6,7 @@ using LanguageExt;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using opcs.App.Core;
+using opcs.App.Core.Security;
 using opcs.App.Data.Dto.General;
 using opcs.App.Entity.Security;
 using opcs.App.Repository.Security.Interface;
@@ -56,8 +57,8 @@ public class SecurityService(
         var claims = new List<Claim>
         {
             new (JwtRegisteredClaimNames.Name, user.Username),
-            new ("userEmail", user.Email),
-            new ("userId", user.UserId)
+            new (JwtAuthClaims.Email, user.Email),
+            new (JwtAuthClaims.UserId, user.UserId)
         };
 
         var signingCredential = new SigningCredentials(_securityKey, SecurityAlgorithms.HmacSha512);
@@ -169,13 +170,13 @@ public class SecurityService(
                 ToDictionary(claim => claim.Type, claim => claim.Value);
 
         if (!(claims.ContainsKey(JwtRegisteredClaimNames.Name)
-              && claims.ContainsKey("userEmail")
-              && claims.ContainsKey("userId")))
+              && claims.ContainsKey(JwtAuthClaims.Email)
+              && claims.ContainsKey(JwtAuthClaims.UserId)))
         {
             return (false, null);
         }
 
-        var userId = claims["userId"];
+        var userId = claims[JwtAuthClaims.UserId];
         var user = userRepository.GetUserByUserId(userId).Result;
 
         return user is not null ? (true, user) : (false, null);

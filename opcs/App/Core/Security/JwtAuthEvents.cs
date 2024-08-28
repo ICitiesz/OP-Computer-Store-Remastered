@@ -2,6 +2,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using opcs.App.Service.Security.Interface;
+using opcs.Resources;
 
 namespace opcs.App.Core.Security;
 
@@ -20,13 +21,13 @@ public class JwtAuthEvents : JwtBearerEvents
         var claimPrincipal = context.Principal!;
 
         var userId = claimPrincipal.Claims
-            .Find(claim => claim.Type is "userId")
+            .Find(claim => claim.Type is JwtAuthClaims.UserId)
             .Select(claim => claim.Value)
             .First();
 
         if (securityService.HasSession(userId)) return Task.CompletedTask;
 
-        context.Fail("Unauthorized");
+        context.Fail(CodeMessages.opcs_error_auth_unauthorized);
 
         return Task.CompletedTask;
     }
