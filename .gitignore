@@ -1,3 +1,4 @@
+# Backend directories
 /output/
 /packages/
 riderModule.iml
@@ -5,3 +6,33 @@ riderModule.iml
 /scripts/
 /.idea/
 /.jetclient/
+
+# Frontend directories
+# Compiled output
+opcs-web/dist
+opcs-web/tmp
+opcs-web/out-tsc
+opcs-web/bazel-out
+
+# Node
+opcs-web/node_modules
+opcs-web/npm-debug.log
+opcs-web/yarn-error.log
+
+# IDEs and editors
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Miscellaneous
+opcs-web/.angular/cache
+opcs-web/.sass-cache/
+opcs-web/connect.lock
+opcs-web/coverage
+opcs-web/libpeerconnection.log
+opcs-web/testem.log
+opcs-web/typings
