@@ -10,7 +10,7 @@ public class AuthRefreshTokenRepository(AppDbContext dbContext) : IAuthRefreshTo
 {
     public async Task<AuthRefreshToken> AddRefreshTokenAsync(AuthRefreshToken authRefreshToken)
     {
-        var result =  await dbContext.AuthRefreshTokens.AddAsync(authRefreshToken);
+        var result = await dbContext.AuthRefreshTokens.AddAsync(authRefreshToken);
 
         await dbContext.SaveChangesAsync();
 

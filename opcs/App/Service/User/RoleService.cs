@@ -1,5 +1,4 @@
 using LanguageExt;
-using opcs.App.Data.Dto;
 using opcs.App.Data.Dto.General;
 using opcs.App.Data.Mapper;
 using opcs.App.Repository.User.Interface;
@@ -30,7 +29,7 @@ public class RoleService(IRoleRepository roleRepository) : IRoleService
 
     public Option<RoleDto> GetUserRole(string userId)
     {
-        var result =  roleRepository.GetUserRole(userId).Result;
+        var result = roleRepository.GetUserRole(userId).Result;
 
         return result is not null ? ObjectMapper.GetMapper().Map<RoleDto>(result) : new Option<RoleDto>();
     }

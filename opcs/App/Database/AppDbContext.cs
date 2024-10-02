@@ -13,15 +13,6 @@ public sealed class AppDbContext : DbContext
         Database.GetDbConnection().Open();
     }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<AuthRefreshToken>()
-            .HasOne(entity => entity.User)
-            .WithMany()
-            .HasForeignKey(entity => entity.UserId)
-            .HasPrincipalKey(entity => entity.UserId);
-    }
-
     public DbSet<Supplier> Supplier { get; set; }
 
     public DbSet<SupplyOrder> SupplyOrder { get; set; }
@@ -33,4 +24,13 @@ public sealed class AppDbContext : DbContext
     public DbSet<AuthRefreshToken> AuthRefreshTokens { get; set; }
 
     public DbSet<AccessPermission> AccessPermissions { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<AuthRefreshToken>()
+            .HasOne(entity => entity.User)
+            .WithMany()
+            .HasForeignKey(entity => entity.UserId)
+            .HasPrincipalKey(entity => entity.UserId);
+    }
 }

@@ -1,9 +1,6 @@
-
 using LanguageExt;
-using Microsoft.IdentityModel.Tokens;
 using opcs.App.Core;
 using opcs.App.Core.Security;
-using opcs.App.Data.Dto.General;
 using opcs.App.Data.Dto.Request;
 using opcs.App.Data.Dto.Response;
 using opcs.App.Repository.Security.Interface;
@@ -15,16 +12,13 @@ namespace opcs.App.Service.Security;
 public class AuthService(
     IUserRepository userRepository,
     IAuthRefreshTokenRepository refreshTokenRepository,
-
     ISecurityService securityService,
     AppConfiguration appConfig) : IAuthService
 {
     public Option<AuthenticationResponseDto> UserRegister(UserRegisterRequestDto requestDto)
     {
         if (userRepository.HasUserByUsernameEmail(requestDto.Username, requestDto.Email))
-        {
             return new Option<AuthenticationResponseDto>();
-        }
 
         var user = new Entity.User.User
         {
@@ -57,7 +51,9 @@ public class AuthService(
 
         if (!isTokenValid) return new Option<AuthenticationResponseDto>();
 
-        return !securityService.ValidateRefreshToken(user!.UserId, requestDto.RefreshToken) ? new Option<AuthenticationResponseDto>() : AuthenticateUser(user, true);
+        return !securityService.ValidateRefreshToken(user!.UserId, requestDto.RefreshToken)
+            ? new Option<AuthenticationResponseDto>()
+            : AuthenticateUser(user, true);
     }
 
     public bool RevokeRefreshToken(HttpContext httpContext)
@@ -66,6 +62,27 @@ public class AuthService(
             .First(claim => claim.Type is JwtAuthClaims.UserId).Value;
 
         return RevokeRefreshToken(userId);
+    }
+
+    public void SaveAuthCookies(IResponseCookies cookies, AuthenticationResponseDto authResponse)
+    {
+        cookies.Append("accessToken", authResponse.AccessToken, new CookieOptions
+        {
+            HttpOnly = true,
+            SameSite = SameSiteMode.None,
+            Secure = true,
+            IsEssential = true,
+            MaxAge = TimeSpan.FromDays(appConfig.GetRefreshTokenLifeSpan())
+        });
+
+        cookies.Append("refreshToken", authResponse.RefreshToken, new CookieOptions
+        {
+            HttpOnly = true,
+            SameSite = SameSiteMode.None,
+            Secure = true,
+            IsEssential = true,
+            MaxAge = TimeSpan.FromDays(appConfig.GetRefreshTokenLifeSpan())
+        });
     }
 
     public bool RevokeRefreshToken(string userId)
@@ -79,9 +96,8 @@ public class AuthService(
         var refreshTokenDto = securityService.GenerateUserRefreshToken(user.UserId, isRefreshAuth);
 
         return new AuthenticationResponseDto(
-            AccessToken: accessToken,
-            Expiry: DateTime.UtcNow.AddMinutes(appConfig.GetAccessTokenLifeSpan()),
-            RefreshToken: refreshTokenDto.Token
+            accessToken,
+            refreshTokenDto.Token
         );
     }
 }

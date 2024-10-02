@@ -1,7 +1,6 @@
 namespace opcs.App.Data.Dto.General;
 
-public record RefreshTokenDto
-(
+public record RefreshTokenDto(
     long TokenId,
     string Token,
     string UserId,

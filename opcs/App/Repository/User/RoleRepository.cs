@@ -21,13 +21,13 @@ public class RoleRepository(AppDbContext dbContext) : IRoleRepository
     public async Task<bool> HasUserRole(string userId)
     {
         FormattableString sqlQuery = $"""
-                                    SELECT *
-                                    FROM t_role AS tRole
-                                    WHERE EXISTS(
-                                        SELECT 1 FROM t_user AS tUser
-                                        WHERE tUser.user_id = {userId}
-                                        AND tUser.role_id = tRole.role_id)
-                                    """;
+                                      SELECT *
+                                      FROM t_role AS tRole
+                                      WHERE EXISTS(
+                                          SELECT 1 FROM t_user AS tUser
+                                          WHERE tUser.user_id = {userId}
+                                          AND tUser.role_id = tRole.role_id)
+                                      """;
 
         return await dbContext.Database.ExecuteSqlInterpolatedAsync(sqlQuery) > 0;
     }
@@ -44,7 +44,6 @@ public class RoleRepository(AppDbContext dbContext) : IRoleRepository
                                       """;
 
         var roles = await dbContext.Database.SqlQuery<Role>(sqlQuery).AsNoTracking().ToListAsync();
-
 
 
         return !roles.IsNullOrEmpty() ? roles.First() : null;

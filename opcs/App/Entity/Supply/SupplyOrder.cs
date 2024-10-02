@@ -7,16 +7,15 @@ namespace opcs.App.Entity.Supply;
 public class SupplyOrder : AuditBase
 {
     [Column(TypeName = "bigint")]
-    [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public long SupplyOrderId { get; set; }
 
-    [Column(TypeName = "bigint")]
-    public long? SupplierId { get; set; }
+    [Column(TypeName = "bigint")] public long? SupplierId { get; set; }
 
     public Supplier.Supplier? Supplier { get; set; }
 
     public DateOnly OrderDate { get; set; }
 
-    [Column(TypeName = "varchar(20)")]
-    public string OrderStatus { get; set; } = string.Empty;
+    [Column(TypeName = "varchar(20)")] public string OrderStatus { get; set; } = string.Empty;
 }

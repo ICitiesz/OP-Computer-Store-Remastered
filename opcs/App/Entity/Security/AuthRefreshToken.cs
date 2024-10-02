@@ -7,7 +7,8 @@ namespace opcs.App.Entity.Security;
 public class AuthRefreshToken : AuditBase
 {
     [Column("token_id", TypeName = "bigint")]
-    [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public long TokenId { get; set; }
 
     [Column("refresh_token", TypeName = "varchar(128)")]
@@ -16,9 +17,7 @@ public class AuthRefreshToken : AuditBase
     [Column("user_id", TypeName = "varchar(26)")]
     public string UserId { get; set; } = string.Empty;
 
-    [ForeignKey("UserId")]
-    public User.User User { get; set; }
+    [ForeignKey("UserId")] public User.User User { get; set; }
 
-    [Column("expiry")]
-    public DateTime Expiry{ get; set; }
+    [Column("expiry")] public DateTime Expiry { get; set; }
 }

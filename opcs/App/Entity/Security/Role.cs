@@ -9,7 +9,8 @@ namespace opcs.App.Entity.Security;
 public class Role : AuditBase
 {
     [Column("role_id", TypeName = "bigint")]
-    [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public long RoleId { get; set; }
 
     [Column("role_name", TypeName = "varchar(64)")]

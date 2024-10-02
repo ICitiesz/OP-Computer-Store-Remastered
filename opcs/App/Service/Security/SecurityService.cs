@@ -1,4 +1,3 @@
-using System.Buffers.Text;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -26,7 +25,7 @@ public class SecurityService(
 
     public string HashPassword(Entity.User.User user, string password)
     {
-       return _passwordHasher.HashPassword(user, password);
+        return _passwordHasher.HashPassword(user, password);
     }
 
     public bool VerifyHashedPassword(Entity.User.User user, string providedPassword, string hashedPassword)
@@ -37,17 +36,14 @@ public class SecurityService(
     }
 
     /// <summary>
-    /// Generate userId with ULID.
+    ///     Generate userId with ULID.
     /// </summary>
     /// <returns>An ULID as userId.</returns>
     public string GenerateUserId()
     {
         var userId = Ulid.NewUlid().ToString();
 
-        while (userRepository.HasUserByUserId(userId))
-        {
-            userId = Ulid.NewUlid().ToString();
-        }
+        while (userRepository.HasUserByUserId(userId)) userId = Ulid.NewUlid().ToString();
 
         return userId;
     }
@@ -56,16 +52,17 @@ public class SecurityService(
     {
         var claims = new List<Claim>
         {
-            new (JwtRegisteredClaimNames.Name, user.Username),
-            new (JwtAuthClaims.Email, user.Email),
-            new (JwtAuthClaims.UserId, user.UserId)
+            new(JwtRegisteredClaimNames.Name, user.Username),
+            new(JwtAuthClaims.Email, user.Email),
+            new(JwtAuthClaims.UserId, user.UserId)
         };
 
         var signingCredential = new SigningCredentials(_securityKey, SecurityAlgorithms.HmacSha512);
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.UtcNow.AddMinutes(appConfig.GetAccessTokenLifeSpan()),
+            // Expires = DateTime.UtcNow.AddMinutes(appConfig.GetAccessTokenLifeSpan()),
+            Expires = DateTime.UtcNow.AddSeconds(7),
             SigningCredentials = signingCredential,
             Issuer = appConfig.GetTokenIssuer(),
             Audience = appConfig.GetTokenAudience()
@@ -74,17 +71,6 @@ public class SecurityService(
         var tokenHandler = new JwtSecurityTokenHandler();
 
         return tokenHandler.WriteToken(tokenHandler.CreateToken(tokenDescriptor));
-    }
-
-    private static string GenerateRefreshToken()
-    {
-        var rngNumber = new byte[64];
-
-        using var rngNumGenerator = RandomNumberGenerator.Create();
-
-        rngNumGenerator.GetBytes(rngNumber);
-
-        return Convert.ToBase64String(rngNumber);
     }
 
     public RefreshTokenDto GenerateUserRefreshToken(string userId, bool isRefreshAuth = false)
@@ -135,29 +121,11 @@ public class SecurityService(
 
         return new RefreshTokenDto
         (
-            TokenId: userRefreshToken.TokenId,
-            Token: tokenString,
-            UserId: userId,
-            TokenExpiry: tokenExpiry
+            userRefreshToken.TokenId,
+            tokenString,
+            userId,
+            tokenExpiry
         );
-    }
-
-    public Option<RefreshTokenDto> GetUserRefreshToken(string userId)
-    {
-        var authRefreshToken = refreshTokenRepository.GetRefreshTokenByUserIdAsync(userId).Result;
-
-        return authRefreshToken != null ? new RefreshTokenDto
-        (
-                TokenId: authRefreshToken.TokenId,
-                Token: authRefreshToken.RefreshToken,
-                UserId: authRefreshToken.UserId,
-                TokenExpiry: authRefreshToken.Expiry
-        ) : null;
-    }
-
-    private static bool IsRefreshTokenExpired(DateTime tokenExpiry)
-    {
-        return tokenExpiry < DateTime.UtcNow;
     }
 
     public (bool, Entity.User.User?) ValidateAccessToken(string expiredAccessToken)
@@ -166,15 +134,12 @@ public class SecurityService(
 
         if (claimPrinciple is null) return (false, null);
 
-        var claims = claimPrinciple.Claims.
-                ToDictionary(claim => claim.Type, claim => claim.Value);
+        var claims = claimPrinciple.Claims.ToDictionary(claim => claim.Type, claim => claim.Value);
 
         if (!(claims.ContainsKey(JwtRegisteredClaimNames.Name)
               && claims.ContainsKey(JwtAuthClaims.Email)
               && claims.ContainsKey(JwtAuthClaims.UserId)))
-        {
             return (false, null);
-        }
 
         var userId = claims[JwtAuthClaims.UserId];
         var user = userRepository.GetUserByUserId(userId).Result;
@@ -198,11 +163,43 @@ public class SecurityService(
         return refreshTokenRepository.HasRefreshTokenByUserId(userId);
     }
 
+    private static string GenerateRefreshToken()
+    {
+        var rngNumber = new byte[64];
+
+        using var rngNumGenerator = RandomNumberGenerator.Create();
+
+        rngNumGenerator.GetBytes(rngNumber);
+
+        return Convert.ToBase64String(rngNumber);
+    }
+
+    public Option<RefreshTokenDto> GetUserRefreshToken(string userId)
+    {
+        var authRefreshToken = refreshTokenRepository.GetRefreshTokenByUserIdAsync(userId).Result;
+
+        return authRefreshToken != null
+            ? new RefreshTokenDto
+            (
+                authRefreshToken.TokenId,
+                authRefreshToken.RefreshToken,
+                authRefreshToken.UserId,
+                authRefreshToken.Expiry
+            )
+            : null;
+    }
+
+    private static bool IsRefreshTokenExpired(DateTime tokenExpiry)
+    {
+        return tokenExpiry < DateTime.UtcNow;
+    }
+
     private ClaimsPrincipal? GetExpiredAccessTokenPrincipal(string expiredAccessToken)
     {
         try
         {
-            return new JwtSecurityTokenHandler().ValidateToken(expiredAccessToken, appConfig.GetTokenValidationParameters(false), out _);
+            return new JwtSecurityTokenHandler().ValidateToken(expiredAccessToken,
+                appConfig.GetTokenValidationParameters(false), out _);
         }
         catch (SecurityTokenMalformedException err)
         {

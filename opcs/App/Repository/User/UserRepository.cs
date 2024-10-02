@@ -1,13 +1,11 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
-using opcs.App.Data.Dto.Request;
 using opcs.App.Database;
 using opcs.App.Repository.User.Interface;
 
 namespace opcs.App.Repository.User;
 
-public class UserRepository(AppDbContext dbContext): IUserRepository
+public class UserRepository(AppDbContext dbContext) : IUserRepository
 {
     public Task<List<Entity.User.User>> GetAllUserAsync()
     {

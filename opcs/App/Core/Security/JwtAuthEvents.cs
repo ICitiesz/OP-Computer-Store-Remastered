@@ -1,6 +1,7 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using opcs.App.Service.Security.Interface;
 using opcs.Resources;
 
@@ -12,10 +13,7 @@ public class JwtAuthEvents : JwtBearerEvents
     {
         var reqUrl = context.Request.Path.Value!;
 
-        if (reqUrl.Equals("/auth/register") || reqUrl.Equals("/auth/login"))
-        {
-            return Task.CompletedTask;
-        }
+        if (reqUrl.Equals("/auth/register") || reqUrl.Equals("/auth/login")) return Task.CompletedTask;
 
         var securityService = context.HttpContext.RequestServices.GetAutofacRoot().Resolve<ISecurityService>();
         var claimPrincipal = context.Principal!;
@@ -29,6 +27,20 @@ public class JwtAuthEvents : JwtBearerEvents
 
         context.Fail(CodeMessages.opcs_error_auth_unauthorized);
 
+        return Task.CompletedTask;
+    }
+
+    public override Task MessageReceived(MessageReceivedContext context)
+    {
+        if (context.Request.Cookies.IsNullOrEmpty()
+            || !context.Request.Cookies.ContainsKey("accessToken")
+            || !context.Request.Cookies.ContainsKey("refreshToken"))
+        {
+            context.Fail(CodeMessages.opcs_error_auth_unauthorized);
+            return Task.CompletedTask;
+        }
+
+        context.Token = context.Request.Cookies["accessToken"];
         return Task.CompletedTask;
     }
 }

@@ -1,5 +1,4 @@
 using LanguageExt;
-using opcs.App.Data.Dto.General;
 using opcs.App.Data.Dto.Request;
 using opcs.App.Data.Dto.Response;
 
@@ -16,4 +15,6 @@ public interface IAuthService
     bool RevokeRefreshToken(string userId);
 
     bool RevokeRefreshToken(HttpContext httpContext);
+
+    void SaveAuthCookies(IResponseCookies cookies, AuthenticationResponseDto authResponse);
 }

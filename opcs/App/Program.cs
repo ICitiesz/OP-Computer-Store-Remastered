@@ -46,6 +46,17 @@ public static class Program
         webAppBuilder.Services.AddSwaggerGen();
         webAppBuilder.Services.AddHostedService(serviceProvider =>
             new ServiceTaskInitiator(serviceProvider, webAppBuilder.Services));
+
+        webAppBuilder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowSpecificOrigin",
+                builder => builder
+                    .SetIsOriginAllowed(_ => true)
+                    .WithOrigins("http://localhost:4200")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials());
+        });
     }
 
     private static void _ConfigureDependencyInjection(WebApplicationBuilder webAppBuilder)
@@ -78,7 +89,9 @@ public static class Program
         webAppBuilder.Services.AddAuthentication(option =>
             {
                 option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
+            .AddCookie(option => { option.Cookie.Name = "accessToken"; })
             .AddJwtBearer(option =>
             {
                 option.Events = new JwtAuthEvents();
@@ -89,14 +102,8 @@ public static class Program
     private static void _ConfigureController(WebApplicationBuilder webAppBuilder)
     {
         webAppBuilder.Services.AddMvc().AddControllersAsServices()
-            .AddMvcOptions(options =>
-            {
-                options.Filters.Add<EndpointValidator>();
-            })
-            .AddJsonOptions(options =>
-            {
-                options.JsonSerializerOptions.PropertyNamingPolicy = null;
-            });
+            .AddMvcOptions(options => { options.Filters.Add<EndpointValidator>(); })
+            .AddJsonOptions(options => { options.JsonSerializerOptions.PropertyNamingPolicy = null; });
     }
 
     private static void _ConfigureSwagger(WebApplication webApp, AppConfiguration appConfig)
@@ -122,12 +129,10 @@ public static class Program
 
         _ConfigureResolver(webAppBuilder.Services, webApp.Services);
 
-        if (webApp.Environment.IsDevelopment())
-        {
-           _ConfigureSwagger(webApp, appConfig);
-        }
+        if (webApp.Environment.IsDevelopment()) _ConfigureSwagger(webApp, appConfig);
 
         webApp.UsePathBase(appConfig.GetBasePath());
+        webApp.UseCors("AllowSpecificOrigin");
         webApp.UseAuthentication();
         webApp.UseAuthorization();
         webApp.UseRouting();
@@ -136,6 +141,4 @@ public static class Program
 
         return webApp;
     }
-
-
 }

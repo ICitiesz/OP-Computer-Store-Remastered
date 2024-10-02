@@ -91,7 +91,7 @@
     </data>
 
     <data name="opcs.error.permission.forbidden_access" xml:space="preserve">
-        <value>Forbidden access!</value>
+        <value>You do not have the right to access this!</value>
     </data>
 
     <!-- Misc. code messages -->

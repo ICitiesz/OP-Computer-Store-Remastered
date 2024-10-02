@@ -10,7 +10,7 @@ using opcs.Resources;
 namespace opcs.App.Core.Attribute;
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
-public class RequiredPermission(string permission) : System.Attribute, IAuthorizationFilter
+public class RequiredPermission(Permission.PermissionEnum permission) : System.Attribute, IAuthorizationFilter
 {
     public void OnAuthorization(AuthorizationFilterContext context)
     {
@@ -33,13 +33,12 @@ public class RequiredPermission(string permission) : System.Attribute, IAuthoriz
 
         var role = roleService.GetUserRole(userId).SingleOrDefault();
 
-        if (role is null || !accessPermissionService.HasPermissionByNameRoleId(permission, role!.RoleId))
-        {
+        if (role is null ||
+            !accessPermissionService.HasPermissionByNameRoleId(Permission.GetPermission(permission), role!.RoleId))
             context.Result = new Response
             {
                 statusCode = StatusCodes.Status403Forbidden,
                 message = CodeMessages.opcs_error_permission_forbidden_access
             };
-        }
     }
 }

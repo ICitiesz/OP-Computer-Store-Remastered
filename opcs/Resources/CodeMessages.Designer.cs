@@ -87,7 +87,7 @@ namespace opcs.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Forbidden access!.
+        ///   Looks up a localized string similar to You do not have the right to access this!.
         /// </summary>
         internal static string opcs_error_permission_forbidden_access {
             get {

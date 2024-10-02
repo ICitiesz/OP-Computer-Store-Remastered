@@ -26,7 +26,7 @@ public class AppConfiguration(IConfiguration configuration)
     }
 
     /// <summary>
-    /// Get the access token life span in minutes.
+    ///     Get the access token life span in minutes.
     /// </summary>
     /// <returns>Life span in minutes.</returns>
     public int GetAccessTokenLifeSpan()
@@ -35,7 +35,7 @@ public class AppConfiguration(IConfiguration configuration)
     }
 
     /// <summary>
-    /// Get the refresh token life span in days.
+    ///     Get the refresh token life span in days.
     /// </summary>
     /// <returns>Life span in days.</returns>
     public int GetRefreshTokenLifeSpan()

@@ -18,5 +18,6 @@ public class ServiceModule : Module
         builder.RegisterType<SecurityService>().As<ISecurityService>().PropertiesAutowired();
         builder.RegisterType<AuthService>().As<IAuthService>().PropertiesAutowired();
         builder.RegisterType<AccessPermissionService>().As<IAccessPermissionService>().PropertiesAutowired();
+        builder.RegisterType<PermissionService>().As<IPermissionService>().PropertiesAutowired();
     }
 }

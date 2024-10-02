@@ -7,7 +7,8 @@ namespace opcs.App.Entity.User;
 public class User : AuditBase
 {
     [Column("id", TypeName = "bigint")]
-    [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public long Id { get; set; }
 
     [Column("user_id", TypeName = "varchar(36)")]

@@ -5,13 +5,13 @@ namespace opcs.App.Data;
 
 public class Response : ActionResult
 {
+    private static readonly JsonSerializerOptions JsonSerializerOptions =
+        new() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+
     public object? dto { get; init; } = null;
     public string contentType { get; init; } = "application/json";
     public int statusCode { get; init; } = StatusCodes.Status200OK;
     public string? message { get; init; }
-
-    private static readonly JsonSerializerOptions JsonSerializerOptions =
-        new() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
 
     public override async Task ExecuteResultAsync(ActionContext context)
     {
@@ -25,11 +25,12 @@ public class Response : ActionResult
     public JsonElement? ToJson()
     {
         return JsonSerializer.SerializeToElement
-        (new {
-                contentType,
-                statusCode,
-                message,
-                result = dto
+        (new
+        {
+            contentType,
+            statusCode,
+            message,
+            result = dto
         }, JsonSerializerOptions);
     }
 }
