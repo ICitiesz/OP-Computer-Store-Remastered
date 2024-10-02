@@ -1,0 +1,75 @@
+<div style="background: skyblue; display: flex; padding-block: 10px; padding-left: 20px">
+	<h5 style="margin: 0">{{roleName}}</h5>
+</div>
+
+<mat-dialog-content>
+	<div class="permission-body">
+		<div class="permission-search">
+			<input [ngStyle]="{'--search-icon': 'url(' + IconProvider.SEARCH.iconUrl + ')'}" id="permission-search-box"
+				   placeholder="Search permission..." type="text">
+		</div>
+
+		<div class="permission-content">
+			<div class="permission-list-item" *ngFor="let permission of permissions">
+				<p style="margin: 0;">{{permission.permissionName}}</p>
+				<mat-slide-toggle [hideIcon]="true" class="permission-toggle"></mat-slide-toggle>
+			</div>
+<!--			<div class="permission-list-item ">-->
+<!--				<p style="margin: 0;">Permission Name</p>-->
+<!--				<mat-slide-toggle [hideIcon]="true" class="permission-toggle"></mat-slide-toggle>-->
+<!--			</div>-->
+<!--			<div class="permission-list-item ">-->
+<!--				<p style="margin: 0;">Permission Name</p>-->
+<!--				<mat-slide-toggle [hideIcon]="true" class="permission-toggle"></mat-slide-toggle>-->
+<!--			</div>-->
+<!--			<div class="permission-list-item ">-->
+<!--				<p style="margin: 0;">Permission Name</p>-->
+<!--				<mat-slide-toggle [hideIcon]="true" class="permission-toggle"></mat-slide-toggle>-->
+<!--			</div>-->
+<!--			<div class="permission-list-item ">-->
+<!--				<p style="margin: 0;">Permission Name</p>-->
+<!--				<mat-slide-toggle [hideIcon]="true" class="permission-toggle"></mat-slide-toggle>-->
+<!--			</div>-->
+<!--			<div class="permission-list-item ">-->
+<!--				<p style="margin: 0;">Permission Name</p>-->
+<!--				<mat-slide-toggle [hideIcon]="true" class="permission-toggle"></mat-slide-toggle>-->
+<!--			</div>-->
+<!--			<div class="permission-list-item ">-->
+<!--				<p style="margin: 0;">Permission Name</p>-->
+<!--				<mat-slide-toggle [hideIcon]="true" class="permission-toggle"></mat-slide-toggle>-->
+<!--			</div>-->
+<!--			<div class="permission-list-item ">-->
+<!--				<p style="margin: 0;">Permission Name</p>-->
+<!--				<mat-slide-toggle [hideIcon]="true" class="permission-toggle"></mat-slide-toggle>-->
+<!--			</div>-->
+<!--			<div class="permission-list-item ">-->
+<!--				<p style="margin: 0;">Permission Name</p>-->
+<!--				<mat-slide-toggle [hideIcon]="true" class="permission-toggle"></mat-slide-toggle>-->
+<!--			</div>-->
+<!--			<div class="permission-list-item ">-->
+<!--				<p style="margin: 0;">Permission Name</p>-->
+<!--				<mat-slide-toggle [hideIcon]="true" class="permission-toggle"></mat-slide-toggle>-->
+<!--			</div>-->
+<!--			<div class="permission-list-item ">-->
+<!--				<p style="margin: 0;">Permission Name</p>-->
+<!--				<mat-slide-toggle [hideIcon]="true" class="permission-toggle"></mat-slide-toggle>-->
+<!--			</div>-->
+<!--			<div class="permission-list-item ">-->
+<!--				<p style="margin: 0;">Permission Name</p>-->
+<!--				<mat-slide-toggle [hideIcon]="true" class="permission-toggle"></mat-slide-toggle>-->
+<!--			</div>-->
+<!--			<div class="permission-list-item ">-->
+<!--				<p style="margin: 0;">Permission Name</p>-->
+<!--				<mat-slide-toggle [hideIcon]="true" class="permission-toggle"></mat-slide-toggle>-->
+<!--			</div>-->
+<!--			<div class="permission-list-item ">-->
+<!--				<p style="margin: 0;">Permission Name</p>-->
+<!--				<mat-slide-toggle [hideIcon]="true" class="permission-toggle"></mat-slide-toggle>-->
+<!--			</div>-->
+		</div>
+	</div>
+</mat-dialog-content>
+<mat-dialog-actions align="center" style="display: flex; justify-content: space-around">
+	<button (click)="closePermissionDialog()" type="button">Cancel</button>
+	<button type="button">Save</button>
+</mat-dialog-actions>

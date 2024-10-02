@@ -1,0 +1,97 @@
+<mat-sidenav-container class="h-100 flex-nowrap w-100">
+	<mat-sidenav #sideMenu
+				 (mouseenter)="toggleSideMenu()"
+				 (mouseleave)="toggleSideMenu()"
+				 [@sideMenuState]="sideMenuToggleState"
+				 [disableClose]=true
+				 [fixedInViewport]=true
+				 [mode]=sideMenuMode
+				 [opened]=true
+	>
+		<section class="mt-2 mx-0 pt-2 w-auto d-flex row align-items-center justify-content-center">
+			<a class="navbar-brand align-items-center d-flex w-auto h-auto" href="#">
+				<mat-icon [@titleFlyIn]="titleFlyInState" [svgIcon]="IconProvider.STORE_LOGO.iconName"
+						  class="store-logo"></mat-icon>
+			</a>
+		</section>
+
+		<mat-nav-list style="overflow-x: hidden;">
+			<section class="mx-0 pt-2 w-auto d-flex row align-items-center justify-content-center">
+				<p [@titleFlyIn]="titleFlyInState" class="menu-font text-center align-self-center m-0 px-0">
+					General
+				</p>
+
+				<hr class="menu-hr mt-1 mb-1 w-75">
+			</section>
+
+			<mat-list-item class="menu-item me-0 w-auto" style="text-overflow: clip">
+				<mat-icon [svgIcon]="IconProvider.DASHBOARD.iconName" class="icon-28 align-middle"></mat-icon>
+
+				<p [@titleFlyIn]="titleFlyInState"
+				   class="menu-font menu-list-item-title mx-3 align-middle d-inline-block text-center">
+					Dashboard
+				</p>
+			</mat-list-item>
+
+			<mat-list-item class="menu-item me-0 w-auto" style="text-overflow: clip">
+				<mat-icon [svgIcon]="IconProvider.CHART.iconName" class="icon-28 align-middle"></mat-icon>
+
+				<p [@titleFlyIn]="titleFlyInState"
+				   class="menu-font menu-list-item-title mx-3 align-middle d-inline-block text-center">
+					Analysis
+				</p>
+			</mat-list-item>
+
+			<section class="mt-2 mx-0 pt-2 w-auto d-flex row me-0 align-items-center justify-content-center">
+				<p [@titleFlyIn]="titleFlyInState" class="menu-font text-center align-self-center m-0 px-0 text-nowrap">
+					User Management
+				</p>
+
+				<hr class="menu-hr mt-1 mb-1 w-75">
+			</section>
+
+			<mat-list-item [routerLink]="rolePermissionRouteLink" class="menu-item me-0 w-auto">
+				<mat-icon [svgIcon]="IconProvider.USER_KEY.iconName" class="icon-28 align-middle"></mat-icon>
+
+				<p [@titleFlyIn]="titleFlyInState"
+				   class="menu-font menu-list-item-title mx-3 align-middle d-inline-block text-center">
+					Roles & Permissions
+				</p>
+			</mat-list-item>
+
+			<section class="mt-2 mx-0 pt-2 w-auto d-flex row me-0 align-items-center justify-content-center">
+				<p [@titleFlyIn]="titleFlyInState" class="menu-font text-center align-self-center m-0 px-0 text-nowrap">
+					Product Management
+				</p>
+
+				<hr class="menu-hr mt-1 mb-1 w-75">
+			</section>
+
+			<mat-list-item class="menu-item me-0 w-auto">
+				<mat-icon [svgIcon]="IconProvider.USER_KEY.iconName" class="icon-28 align-middle"></mat-icon>
+
+				<p [@titleFlyIn]="titleFlyInState"
+				   class="menu-font menu-list-item-title mx-3 align-middle d-inline-block text-center">
+					Products
+				</p>
+			</mat-list-item>
+
+			<mat-list-item class="menu-item me-0 w-auto">
+				<mat-icon [svgIcon]="IconProvider.WORKER.iconName" class="icon-28 align-middle"></mat-icon>
+
+				<p [@titleFlyIn]="titleFlyInState"
+				   class="menu-font menu-list-item-title mx-3 align-middle d-inline-block text-center">
+					Suppliers
+				</p>
+			</mat-list-item>
+		</mat-nav-list>
+	</mat-sidenav>
+
+	<mat-sidenav-content #mainContainer id="main-container-holder">
+		<app-admin-header id="admin-navbar"></app-admin-header>
+
+		<div class="main-container">
+			<router-outlet></router-outlet>
+		</div>
+	</mat-sidenav-content>
+</mat-sidenav-container>

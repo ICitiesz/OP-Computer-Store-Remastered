@@ -1,0 +1,104 @@
+.permission-body {
+  height: 100%;
+  width: 100%;
+}
+
+.permission-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  padding-block: .2rem;
+  row-gap: .2rem;
+}
+
+mat-dialog-content {
+  overflow: hidden;
+  padding-inline: 15px !important;
+  padding-top: 0 !important;
+  padding-bottom: 60px !important;
+}
+
+.permission-search {
+  display: flex;
+  align-items: center;
+  padding-inline: 0;
+  padding-block: 10px;
+  gap: .15rem;
+  border-radius: .3rem;
+  justify-content: center;
+}
+
+#permission-search-box {
+  padding-left: .5rem;
+  width: 80%;
+  background-image: var(--search-icon);
+  background-repeat: no-repeat;
+  background-size: 1.5rem auto;
+  background-position: right .2rem center;
+}
+
+#permission-search-btn {
+  display: flex;
+  width: 35px;
+  padding: 0;
+  align-items: center;
+  border-top-right-radius: .3rem;
+  border-bottom-right-radius: .3rem;
+  justify-content: center;
+  border: none;
+}
+
+#permission-search-box, #permission-search-box, #permission-search-btn {
+  height: 30px;
+}
+
+.permission-list-item {
+  display: flex;
+  flex-direction: row;
+  padding-inline: 15px;
+  padding-block: 8px;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: .5rem;
+}
+
+.permission-list-item:hover {
+  background: rgba(168, 168, 168, 0.5);
+}
+
+.permission-toggle .mdc-switch__track {
+  height: 25px !important;
+  width: 42px !important;
+}
+
+.permission-toggle .mdc-switch__track:before {
+  background: #be0000 !important;
+  border-color: transparent !important;
+}
+
+.permission-toggle .mdc-switch__track:after {
+  background: #00a412 !important;
+}
+
+.mat-mdc-slide-toggle .mdc-switch--unselected .mdc-switch__handle {
+  width: 10px !important;
+  height: 10px !important;
+  margin: 0 7px !important;
+  background: black !important;
+}
+
+.mat-mdc-slide-toggle .mdc-switch--selected .mdc-switch__handle {
+  width: 22px !important;
+  height: 22px !important;
+  margin: 0 20px !important;
+}
+
+.mdc-switch--unselected:enabled .mdc-switch__handle::after {
+  background: #bdbdbd !important;
+}
+
+.mdc-switch--selected:enabled .mdc-switch__handle::after {
+  background: white !important;
+}

@@ -1,0 +1,67 @@
+mat-sidenav-container {
+  overflow: hidden;
+}
+
+mat-sidenav {
+  border-top-right-radius: 0;
+}
+
+.menu-list-item-title {
+  width: 70%;
+  margin: 0;
+  text-overflow: clip;
+  white-space: pre-wrap !important;
+}
+
+.menu-font {
+  font-family: Noto Sans, sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+  font-size: 17px;
+  opacity: 0;
+}
+
+.menu-item:hover {
+  background: rgba(50, 149, 168, 0.2);
+}
+
+.menu-hr {
+  opacity: 0.5;
+}
+
+#main-container-holder {
+  width: 100% !important;
+  margin-left: 0 !important;
+  position: fixed !important;
+  scroll-behavior: smooth !important;
+}
+
+app-admin-header {
+  width: 100% !important;
+  position: fixed !important;
+  z-index: 2;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 60px;
+  padding-inline: 10px;
+  padding-top: 55px;
+  padding-bottom: 8px;
+  background: white;
+  min-height: 100%;
+  height: auto;
+  overflow: auto;
+}
+
+mat-sidenav {
+  border-right-width: 1px !important;
+  border-right-style: wave !important;
+  border-right-color: rgba(115, 115, 115, 0.4) !important;
+}
+
+
+

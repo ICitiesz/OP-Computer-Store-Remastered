@@ -1,0 +1,33 @@
+<nav class="navbar admin-navbar container-fluid align-content-center">
+	<div class="container-fluid d-flex me-0">
+		<h5 class="navbar-tab-title">[Tab Title Here]</h5>
+
+		<div class="search-container d-flex">
+			<input id="search-box" placeholder="Search something?" type="text">
+			<button [matRippleColor]="'rgba(115, 115, 115, 0.5)'" class="search-btn" matRipple>
+				<mat-icon [svgIcon]="IconProvider.SEARCH.iconName" class="icon-28"></mat-icon>
+			</button>
+		</div>
+
+		<div class="user-profile-img nav-item rounded-3 p-2 d-flex align-items-center">
+			<mat-icon [svgIcon]="IconProvider.USER.iconName"></mat-icon>
+		</div>
+
+		<!--		<div class="collapse navbar-collapse" id="navbarNav">-->
+		<!--			<ul class="navbar-nav">-->
+		<!--				<li class="nav-item">-->
+		<!--					<a class="nav-link active" aria-current="page" href="#">Home</a>-->
+		<!--				</li>-->
+		<!--				<li class="nav-item">-->
+		<!--					<a class="nav-link" href="#">Features</a>-->
+		<!--				</li>-->
+		<!--				<li class="nav-item">-->
+		<!--					<a class="nav-link" href="#">Pricing</a>-->
+		<!--				</li>-->
+		<!--				<li class="nav-item">-->
+		<!--					<a class="nav-link disabled" aria-disabled="true">Disabled</a>-->
+		<!--				</li>-->
+		<!--			</ul>-->
+		<!--		</div>-->
+	</div>
+</nav>

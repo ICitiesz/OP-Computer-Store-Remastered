@@ -1,0 +1,133 @@
+/* Main */
+.role-table-frame {
+  width: 100%;
+  height: 100%;
+  margin: 0.5vh;
+  padding: 2%;
+  background: white;
+  border-radius: .5rem;
+  box-shadow: 0 0 17px 2px rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+}
+
+/* Role table control */
+.role-table-control {
+  display: flex;
+  padding-block: 20px;
+  width: 100%;
+  justify-content: start;
+  flex-wrap: wrap;
+  column-gap: 2rem;
+  background: white;
+}
+
+.role-search-container, .result-size-container {
+  display: flex;
+  align-items: center;
+  border-radius: .3rem;
+  justify-content: center;
+  width: auto;
+  background: white;
+}
+
+.role-search-container {
+  gap: .15rem;
+}
+
+#role-search-box, #role-search-btn, #result-size-select {
+  height: 30px
+}
+
+#role-search-box {
+  width: 300px;
+  border-top-left-radius: .3rem;
+  border-bottom-left-radius: .3rem;
+  padding-left: .5rem;
+  border-color: transparent;
+}
+
+#role-search-box:hover, #role-search-btn:hover, #result-size-select:hover {
+  border: rgba(0, 0, 0, 0.3) solid 1px;
+  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.4);
+}
+
+#role-search-btn {
+  display: flex;
+  width: 35px;
+  padding: 0;
+  align-items: center;
+  border-top-right-radius: .3rem;
+  border-bottom-right-radius: .3rem;
+  justify-content: center;
+  border: none;
+}
+
+.result-size-container {
+  height: auto;
+  display: flex;
+}
+
+#result-size-select {
+  width: 65px;
+  text-align: center;
+  padding-right: 1vw;
+  border-radius: .3rem;
+  border: none;
+  appearance: none;
+  background-repeat: no-repeat;
+  background-size: 1.1rem auto;
+  background-position: right .2rem center;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyOCIgaGVpZ2h0PSIyOCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWNoZXZyb24tZG93biI+PHBhdGggZD0ibTYgOSA2IDYgNi02Ii8+PC9zdmc+");
+}
+
+.main-table-container {
+  display: flex;
+  justify-content: center;
+  //padding-inline: 0;
+}
+
+.role-table {
+  border-radius: .5rem;
+  border: 1px solid red;
+}
+
+.role-table {
+  width: 100%;
+  display: table;
+  background: salmon;
+  text-wrap: nowrap;
+  border-collapse: separate;
+}
+
+.role-table-header th {
+  width: 100%;
+  padding-inline: 20px;
+  padding-block: 8px;
+  text-align: center;
+}
+
+.role-table-body {
+  overflow: scroll;
+  background: white;
+  padding-top: 100px;
+}
+
+.role-table-body td {
+  border: red solid 1px;
+  height: 40px;
+  width: 100%;
+  align-content: center;
+  text-align: center;
+}
+
+.role-table-body tr:hover {
+  background: aqua;
+}
+
+.role-table tr {
+  display: flex;
+  //border: black solid 1px;
+  //background: greenyellow;
+  //justify-content: center;
+}
