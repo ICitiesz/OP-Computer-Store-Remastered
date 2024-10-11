@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using opcs.App.Core;
 using opcs.App.Core.Security;
-using opcs.App.Data.Dto.General;
+using opcs.App.Data.Dto.Security.Auth;
 using opcs.App.Entity.Security;
 using opcs.App.Repository.Security.Interface;
 using opcs.App.Repository.User.Interface;
@@ -61,8 +61,8 @@ public class SecurityService(
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
-            // Expires = DateTime.UtcNow.AddMinutes(appConfig.GetAccessTokenLifeSpan()),
-            Expires = DateTime.UtcNow.AddSeconds(7),
+            Expires = DateTime.UtcNow.AddMinutes(appConfig.GetAccessTokenLifeSpan()),
+            //Expires = DateTime.UtcNow.AddSeconds(7),
             SigningCredentials = signingCredential,
             Issuer = appConfig.GetTokenIssuer(),
             Audience = appConfig.GetTokenAudience()

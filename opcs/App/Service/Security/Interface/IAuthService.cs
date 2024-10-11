@@ -1,6 +1,5 @@
 using LanguageExt;
-using opcs.App.Data.Dto.Request;
-using opcs.App.Data.Dto.Response;
+using opcs.App.Data.Dto.Security.Auth;
 
 namespace opcs.App.Service.Security.Interface;
 

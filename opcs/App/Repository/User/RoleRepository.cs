@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using opcs.App.Data.Dto.Pagination;
+using opcs.App.Data.Dto.Pagination.Sort;
 using opcs.App.Database;
 using opcs.App.Entity.Security;
 using opcs.App.Repository.User.Interface;
@@ -16,6 +18,11 @@ public class RoleRepository(AppDbContext dbContext) : IRoleRepository
     public async Task<Role?> GetRoleByIdAsync(long roleId)
     {
         return await dbContext.Role.FindAsync(roleId);
+    }
+
+    public bool HasRoleByRoleId(long roleId)
+    {
+        return dbContext.Role.Exists(role => role.RoleId == roleId);
     }
 
     public async Task<bool> HasUserRole(string userId)
@@ -47,5 +54,30 @@ public class RoleRepository(AppDbContext dbContext) : IRoleRepository
 
 
         return !roles.IsNullOrEmpty() ? roles.First() : null;
+    }
+
+    public async Task<(List<Role>, int)> QueryRole(PaginationRequestDto<object, QueryRoleSort> requestDto)
+    {
+        var sorts = requestDto.Sort;
+        var sqlQuery = dbContext.Role.AsNoTracking();
+        var totalRoleCount = await sqlQuery.CountAsync();
+
+        sqlQuery = sorts.RoleNameDesc switch
+        {
+            false => sqlQuery
+                .OrderBy(role => role.RoleName.Length)
+                .ThenBy(role => role.RoleId),
+
+            true => sqlQuery
+                .OrderByDescending(role => role.RoleName.Length)
+                .ThenByDescending(role => role.RoleName)
+        };
+
+        var roles = await sqlQuery
+            .Skip((requestDto.CurrentPage - 1) * requestDto.TotalItemsPerPage)
+            .Take(requestDto.TotalItemsPerPage)
+            .ToListAsync();
+
+        return (roles, totalRoleCount);
     }
 }

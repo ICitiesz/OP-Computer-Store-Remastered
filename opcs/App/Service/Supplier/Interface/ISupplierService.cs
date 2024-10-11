@@ -1,5 +1,5 @@
 using LanguageExt;
-using opcs.App.Data.Dto.General;
+using opcs.App.Data.Dto.Supplier;
 
 namespace opcs.App.Service.Supplier.Interface;
 

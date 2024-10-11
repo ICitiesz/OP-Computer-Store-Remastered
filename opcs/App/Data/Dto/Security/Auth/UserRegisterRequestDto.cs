@@ -2,7 +2,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using opcs.App.Core.Attribute;
 
-namespace opcs.App.Data.Dto.Request;
+namespace opcs.App.Data.Dto.Security.Auth;
 
 public record UserRegisterRequestDto(
     [Required]

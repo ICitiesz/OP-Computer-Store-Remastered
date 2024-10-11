@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace opcs.App.Data.Dto.Request;
+namespace opcs.App.Data.Dto.Security.Auth;
 
 public record RefreshTokenRequestDto(
     [Required] string AccessToken,

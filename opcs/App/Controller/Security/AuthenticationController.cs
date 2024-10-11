@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using opcs.App.Core;
 using opcs.App.Data;
-using opcs.App.Data.Dto.Request;
+using opcs.App.Data.Dto.Security.Auth;
 using opcs.App.Service.Security.Interface;
 using opcs.Resources;
 
@@ -47,6 +47,7 @@ public class AuthenticationController(
 
                 return new Response
                 {
+                    dto = result,
                     message = CodeMessages.opcs_info_auth_login_successful
                 };
             },

@@ -1,8 +1,7 @@
 using LanguageExt;
 using opcs.App.Core;
 using opcs.App.Core.Security;
-using opcs.App.Data.Dto.Request;
-using opcs.App.Data.Dto.Response;
+using opcs.App.Data.Dto.Security.Auth;
 using opcs.App.Repository.Security.Interface;
 using opcs.App.Repository.User.Interface;
 using opcs.App.Service.Security.Interface;

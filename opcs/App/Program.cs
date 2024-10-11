@@ -42,6 +42,7 @@ public static class Program
         _ConfigureController(webAppBuilder);
         _ConfigureAuthentication(webAppBuilder, appConfig);
 
+        webAppBuilder.Services.AddHttpContextAccessor();
         webAppBuilder.Services.AddEndpointsApiExplorer();
         webAppBuilder.Services.AddSwaggerGen();
         webAppBuilder.Services.AddHostedService(serviceProvider =>

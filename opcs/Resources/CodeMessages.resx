@@ -46,6 +46,10 @@
         <value>Value must be equal!</value>
     </data>
 
+    <data name="opcs.error.request.value_not_found" xml:space="preserve">
+        <value>Value not found! Available value: {0}</value>
+    </data>
+
     <data name="opcs.error.request.property_type_not_equal" xml:space="preserve">
         <value>Property type is not equal!</value>
     </data>

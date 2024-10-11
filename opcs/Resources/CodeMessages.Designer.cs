@@ -159,6 +159,15 @@ namespace opcs.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Value not found! Available value: {0}.
+        /// </summary>
+        internal static string opcs_error_request_value_not_found {
+            get {
+                return ResourceManager.GetString("opcs.error.request.value_not_found", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Role not exist!.
         /// </summary>
         internal static string opcs_error_role_not_exist {

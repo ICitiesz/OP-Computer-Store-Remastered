@@ -1,4 +1,4 @@
-using opcs.App.Data.Dto.General;
+using opcs.App.Data.Dto.Security.Auth;
 
 namespace opcs.App.Service.Security.Interface;
 

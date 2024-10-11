@@ -1,4 +1,4 @@
-namespace opcs.App.Data.Dto.General;
+namespace opcs.App.Data.Dto.Security.Auth;
 
 public record RefreshTokenDto(
     long TokenId,
