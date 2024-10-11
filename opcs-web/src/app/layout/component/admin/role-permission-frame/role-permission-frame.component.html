@@ -1,19 +1,30 @@
 <div class="role-table-frame">
-	<div class="role-table-control">
-		<div class="role-search-container">
-			<input id="role-search-box" placeholder="Search role" type="text">
-			<button [matRippleColor]="'rgba(115, 115, 115, 0.5)'" id="role-search-btn" matRipple>
-				<mat-icon [svgIcon]="IconProvider.SEARCH.iconName" class="icon-28"></mat-icon>
-			</button>
+	<div class="role-list-control-top">
+		<div class="role-list-control-top-section-1">
+			<div class="result-size-container">
+				<p>Show</p>
+
+				<select id="result-size-select" (change)="updateRoleDisplaySize($event)">
+					<option [value]="'10'" selected>10</option>
+					<option [value]="'25'">25</option>
+					<option [value]="'50'">50</option>
+				</select>
+
+				<p>items</p>
+			</div>
+
+			<div class="role-search-container">
+				<input id="role-search-box" placeholder="Search role" type="text">
+				<button [matRippleColor]="'rgba(115, 115, 115, 0.5)'" id="role-search-btn" matRipple>
+					<mat-icon [svgIcon]="IconProvider.SEARCH.iconName" class="icon-28"></mat-icon>
+				</button>
+			</div>
 		</div>
 
-		<div class="result-size-container">
-			<select id="result-size-select">
-				<option [value]="'10'" selected>10</option>
-				<option [value]="'25'">25</option>
-			</select>
-
-			<p class="px-2 m-0">item(s) per page</p>
+		<div class="role-list-control-top-section-2">
+			<button [matRippleColor]="'rgba(115, 115, 115, 0.5)'" id="role-create-btn" matRipple>
+				<span>Add New Role</span>
+			</button>
 		</div>
 	</div>
 
@@ -32,84 +43,45 @@
 			</div>
 
 			<div class="list-group-body" >
-				<button *ngFor="let role of roles" (click)="openRolePermissionDialog({'roleName': role.roleName, 'permissions': permissions})" class="list-group-body-item list-group-item" type="button">
-					<div class="list-group-body-item-detail">{{role.roleName}}</div>
-					<div class="list-group-body-item-detail">[CreationDate]</div>
+				<button *ngFor="let role of roles" (click)="openRolePermissionDialog({'role': role, 'permissions': permissions})" class="list-group-body-item list-group-item" type="button">
+					<div class="list-group-body-item-detail">{{ role.roleName }}</div>
+					<div class="list-group-body-item-detail">{{ DateTimeUtils.toUserLocalDate(role.createdDate) }}</div>
 					<div class="list-group-body-item-detail">[AssignedMemberCount]</div>
 				</button>
-				<!--				<button type="button" class="list-group-item list-group-item-action active" aria-current="true">-->
-				<!--					The current button-->
-				<!--				</button>-->
-				<!--				<button type="button" class="list-group-item list-group-item-action active" aria-current="true">-->
-				<!--					The current button-->
-				<!--				</button>-->
-				<!--				<button type="button" class="list-group-item list-group-item-action active" aria-current="true">-->
-				<!--					The current button-->
-				<!--				</button>-->
-				<!--				<button type="button" class="list-group-item list-group-item-action active" aria-current="true">-->
-				<!--					The current button-->
-				<!--				</button>-->
-				<!--				<button type="button" class="list-group-item list-group-item-action active" aria-current="true">-->
-				<!--					The current button-->
-				<!--				</button>-->
-				<!--				<button type="button" class="list-group-item list-group-item-action active" aria-current="true">-->
-				<!--					The current button-->
-				<!--				</button>-->
-				<!--				<button type="button" class="list-group-item list-group-item-action active" aria-current="true">-->
-				<!--					The current button-->
-				<!--				</button>-->
-				<!--				<button type="button" class="list-group-item list-group-item-action active" aria-current="true">-->
-				<!--					The current button-->
-				<!--				</button>-->
-				<!--				<button type="button" class="list-group-item list-group-item-action active" aria-current="true">-->
-				<!--					The current button-->
-				<!--				</button>-->
-				<!--				&lt;!&ndash;  &ndash;&gt;-->
-				<!--				<button type="button" class="list-group-item list-group-item-action active" aria-current="true">-->
-				<!--					The current button-->
-				<!--				</button>-->
-				<!--				<button type="button" class="list-group-item list-group-item-action active" aria-current="true">-->
-				<!--					The current button-->
-				<!--				</button>-->
-				<!--				<button type="button" class="list-group-item list-group-item-action active" aria-current="true">-->
-				<!--					The current button-->
-				<!--				</button>-->
-				<!--				<button type="button" class="list-group-item list-group-item-action active" aria-current="true">-->
-				<!--					The current button-->
-				<!--				</button>-->
-				<!--				<button type="button" class="list-group-item list-group-item-action active" aria-current="true">-->
-				<!--					The current button-->
-				<!--				</button>-->
-				<!--				<button type="button" class="list-group-item list-group-item-action active" aria-current="true">-->
-				<!--					The current button-->
-				<!--				</button>-->
-				<!--				<button type="button" class="list-group-item list-group-item-action active" aria-current="true">-->
-				<!--					The current button-->
-				<!--				</button>-->
-				<!--				<button type="button" class="list-group-item list-group-item-action active" aria-current="true">-->
-				<!--					The current button-->
-				<!--				</button>-->
-				<!--				<button type="button" class="list-group-item list-group-item-action active" aria-current="true">-->
-				<!--					The current button-->
-				<!--				</button>-->
-				<!--				<button type="button" class="list-group-item list-group-item-action active" aria-current="true">-->
-				<!--					The current button-->
-				<!--				</button>-->
-				<!--				<button type="button" class="list-group-item list-group-item-action active" aria-current="true">-->
-				<!--					The current button-->
-				<!--				</button>-->
-				<!--				<button type="button" class="list-group-item list-group-item-action active" aria-current="true">-->
-				<!--					The current button-->
-				<!--				</button>-->
-				<!--				<button type="button" class="list-group-item list-group-item-action active" aria-current="true">-->
-				<!--					The current button-->
-				<!--				</button>-->
-				<!--				<button type="button" class="list-group-item list-group-item-action active" aria-current="true">-->
-				<!--					The current button-->
-				<!--				</button>-->
-				<!--				<button type="button" class="list-group-item list-group-item-action active" aria-current="true">-->
-				<!--					The current button-->
-				<!--				</button>-->
+			</div>
+		</div>
+
+		<div class="role-list-control-bottom">
+			<div>
+				<span>Showing: {{ firstItemCount }} ~ {{ lastItemCount }} of {{ totalItems }} items</span>
+			</div>
+
+			<div class="role-list-control-bottom-section-2">
+				<div class="pagination-container">
+					<div class="page-nav-left-container">
+						<a class="page-nav-control" (click)="navigatePage('previous')">
+							<mat-icon [svgIcon]="IconProvider.LEFT_ARROW.iconName" class="icon-28 align-middle"></mat-icon>
+						</a>
+
+						<a *ngIf="pageIndexList[0] !== 1" (click)="navigateToPage($event)">1</a>
+
+						<span *ngIf="showEllipsis('start')">...</span>
+					</div>
+
+					<div *ngFor="let value of pageIndexList" class="page-index-list-container">
+						<a [ngStyle]="this.currentPage === value ? {'background': 'rgba(154, 154, 154, 0.7)', 'transition': '0.2s background ease-in-out' } : {}" (click)="navigateToPage($event)" >{{value}}</a>
+					</div>
+
+					<div class="page-nav-right-container">
+						<span *ngIf="showEllipsis('end')">...</span>
+
+						<a *ngIf="pageIndexList[pageIndexList.length - 1] !== totalPages" (click)="navigateToPage($event)">{{totalPages}}</a>
+
+						<a class="page-nav-control" (click)="navigatePage('next')">
+							<mat-icon [svgIcon]="IconProvider.RIGHT_ARROW.iconName" class="icon-28 align-middle"></mat-icon>
+						</a>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

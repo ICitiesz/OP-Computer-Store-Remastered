@@ -1,4 +1,4 @@
-import {DomSanitizer, SafeResourceUrl, SafeUrl, SafeValue} from "@angular/platform-browser";
+import {DomSanitizer} from "@angular/platform-browser";
 import {inject} from "@angular/core";
 import {IconHolder} from "../icon-holder";
 import {MatIconRegistry} from "@angular/material/icon";

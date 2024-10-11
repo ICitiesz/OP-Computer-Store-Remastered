@@ -74,12 +74,12 @@ mat-dialog-content {
 }
 
 .permission-toggle .mdc-switch__track:before {
-  background: #be0000 !important;
+  background: rgba(117, 117, 117, 0.86) !important;
   border-color: transparent !important;
 }
 
 .permission-toggle .mdc-switch__track:after {
-  background: #00a412 !important;
+  background: rgba(0, 155, 18, 0.86) !important;
 }
 
 .mat-mdc-slide-toggle .mdc-switch--unselected .mdc-switch__handle {

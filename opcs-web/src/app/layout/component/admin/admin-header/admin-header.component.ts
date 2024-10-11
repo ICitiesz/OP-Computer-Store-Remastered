@@ -2,9 +2,9 @@ import {Component} from '@angular/core';
 import {MatButton} from "@angular/material/button";
 import {ComponentService} from "../../../../service/layout/component.service";
 import {MatIconModule} from "@angular/material/icon";
-import {registerIcon} from "../../../../core/utils/resource-resolver";
 import {IconProvider} from "../../../../core/icon-provider";
 import {MatRippleModule} from "@angular/material/core";
+import {registerIcon} from "../../../../core/utils/resource-resolve.utils";
 
 @Component({
 	selector: 'app-admin-header',

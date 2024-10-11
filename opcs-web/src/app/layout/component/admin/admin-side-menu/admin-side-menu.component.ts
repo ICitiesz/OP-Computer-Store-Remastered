@@ -3,12 +3,12 @@ import {MatDrawerMode, MatSidenav, MatSidenavContent, MatSidenavModule} from "@a
 import {ComponentService} from "../../../../service/layout/component.service";
 import {MatIconModule} from "@angular/material/icon";
 import {MatListItem, MatNavList} from "@angular/material/list";
-import {registerIcon} from "../../../../core/utils/resource-resolver";
 import {animate, animateChild, group, query, state, style, transition, trigger} from "@angular/animations";
 import {NgIf, NgStyle} from "@angular/common";
 import {IconProvider} from "../../../../core/icon-provider";
 import {AdminHeaderComponent} from "../admin-header/admin-header.component";
 import {RouterLink, RouterOutlet} from "@angular/router";
+import {registerIcon} from "../../../../core/utils/resource-resolve.utils";
 
 @Component({
 	selector: 'app-admin-side-menu',

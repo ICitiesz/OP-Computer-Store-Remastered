@@ -3,15 +3,10 @@ import {AdminDashboardComponent} from "./layout/screen/admin/admin-dashboard/adm
 import {
 	RolePermissionFrameComponent
 } from "./layout/component/admin/role-permission-frame/role-permission-frame.component";
-import {AdminHomeComponent} from "./layout/screen/admin/admin-home/admin-home.component";
 import {LoginComponent} from "./layout/component/security/auth/login/login.component";
 
 
 export const routes: Routes = [
-	{
-		path: 'admin/home',
-		component: AdminHomeComponent
-	},
 	{
 		path: "login",
 		component: LoginComponent

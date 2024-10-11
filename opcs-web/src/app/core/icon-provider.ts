@@ -36,4 +36,14 @@ export class IconProvider {
 		iconName: "search",
 		iconUrl: "icons/search.svg"
 	}
+
+	static readonly LEFT_ARROW: IconHolder = {
+		iconName: "left_arrow",
+		iconUrl: "icons/chevron-left.svg"
+	}
+
+	static readonly RIGHT_ARROW: IconHolder = {
+		iconName: "right_arrow",
+		iconUrl: "icons/chevron-right.svg"
+	}
 }

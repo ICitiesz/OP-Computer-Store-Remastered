@@ -1,6 +1,6 @@
-import {AfterViewInit, Component, HostListener, ViewChild} from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
 import {AdminHeaderComponent} from "../../../component/admin/admin-header/admin-header.component";
-import {MatSidenavContent, MatSidenavModule} from "@angular/material/sidenav";
+import {MatSidenavModule} from "@angular/material/sidenav";
 import {ComponentService} from "../../../../service/layout/component.service";
 import {MatListItem, MatNavList} from "@angular/material/list";
 import {MatIconModule} from "@angular/material/icon";
@@ -49,7 +49,7 @@ export class AdminDashboardComponent implements AfterViewInit {
 
 		const domAsDoc = domAsElement.ownerDocument
 
-		const adminNavBar = domAsDoc.getElementById("admin-nav-bar")!
+		const adminNavBar = domAsDoc.getElementById("admin-navbar")!
 
 		if (adminNavBar == null) return
 
