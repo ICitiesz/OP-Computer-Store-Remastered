@@ -5,8 +5,6 @@ using Microsoft.EntityFrameworkCore;
 namespace opcs.App.Entity.Security;
 
 [Table("t_access_permission")]
-[Index(["Permission", "RoleId"], IsUnique = true)]
-[Obsolete("Obsolete")]
 public class AccessPermission : AuditBase
 {
     [Column("id", TypeName = "bigint")]

@@ -1,5 +1,7 @@
 using AutoMapper;
-using opcs.App.Data.Dto.General;
+using opcs.App.Data.Dto.Security.Permission;
+using opcs.App.Data.Dto.Security.Role;
+using opcs.App.Data.Dto.Supplier;
 using opcs.App.Entity.Security;
 using opcs.App.Entity.Supplier;
 
@@ -15,7 +17,11 @@ public static class ObjectMapper
         MapperConfig = new MapperConfiguration(configure =>
         {
             configure.CreateMap<Supplier, SupplierDto>();
-            configure.CreateMap<Role, RoleDto>();
+            configure.CreateMap<Role, RoleDto>()
+                .ForCtorParam(
+                    "CreatedDate",
+                    option => option.MapFrom(role =>  role.CreatedAt));
+            configure.CreateMap<AccessPermission, RolePermissionDto>();
         });
         MapperConfig.CompileMappings();
         Mapper = MapperConfig.CreateMapper();

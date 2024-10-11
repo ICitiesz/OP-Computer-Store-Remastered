@@ -5,18 +5,18 @@ public static class Permission
     public enum PermissionEnum
     {
         ManageSupplier,
-        ManagerUser,
+        ManageUser,
         ManageRole,
-        ManagerAdminPanel,
+        ManageAdminPanel,
         ManagePermission
     }
 
     private static readonly List<Tuple<PermissionEnum, string>> PermissionValues =
     [
         Tuple.Create(PermissionEnum.ManageSupplier, "MANAGE_SUPPLIER"),
-        Tuple.Create(PermissionEnum.ManagerUser, "MANAGE_USER"),
+        Tuple.Create(PermissionEnum.ManageUser, "MANAGE_USER"),
         Tuple.Create(PermissionEnum.ManageRole, "MANAGE_ROLE"),
-        Tuple.Create(PermissionEnum.ManagerAdminPanel, "MANAGE_ADMIN_PANEL"),
+        Tuple.Create(PermissionEnum.ManageAdminPanel, "MANAGE_ADMIN_PANEL"),
         Tuple.Create(PermissionEnum.ManagePermission, "MANAGE_PERMISSION")
     ];
 

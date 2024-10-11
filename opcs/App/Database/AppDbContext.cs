@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using opcs.App.Data.Dto.Pagination;
 using opcs.App.Entity.Security;
 using opcs.App.Entity.Supplier;
 using opcs.App.Entity.Supply;
@@ -28,9 +29,23 @@ public sealed class AppDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<AuthRefreshToken>()
-            .HasOne(entity => entity.User)
-            .WithMany()
-            .HasForeignKey(entity => entity.UserId)
-            .HasPrincipalKey(entity => entity.UserId);
+            .HasIndex(authRefreshToken => authRefreshToken.UserId)
+            .IsUnique();
+
+        modelBuilder.Entity<AuthRefreshToken>()
+            .HasOne(authRefreshToken => authRefreshToken.User)
+            .WithOne()
+            .HasForeignKey<AuthRefreshToken>(authRefreshToken => authRefreshToken.UserId)
+            .HasPrincipalKey<User>(user => user.UserId);
+
+        modelBuilder.Entity<AccessPermission>()
+            .HasIndex(accessPermission => new {accessPermission.Permission, accessPermission.RoleId})
+            .IsUnique();
+
+        modelBuilder.Entity<AccessPermission>()
+            .HasOne(accessPermission => accessPermission.Role)
+            .WithOne()
+            .HasForeignKey<AccessPermission>(accessPermission => accessPermission.RoleId)
+            .HasPrincipalKey<Role>(role => role.RoleId);
     }
 }
