@@ -36,7 +36,7 @@ export class PermissionDialogComponent implements OnInit {
 		private matSnackbar: MatSnackBar
 	) {
 		this.roleId = data["role"].roleId
-		this.roleName = data["role"].roleName;
+		this.roleName = data["role"].roleName
 		this.permissions = (data["permissions"] as Array<PermissionModel>).sort((a, b) => a.permissionName.localeCompare(b.permissionName));
 	}
 

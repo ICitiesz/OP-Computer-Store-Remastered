@@ -46,4 +46,9 @@ export class IconProvider {
 		iconName: "right_arrow",
 		iconUrl: "icons/chevron-right.svg"
 	}
+
+	static readonly REFRESH: IconHolder = {
+		iconName: "refresh",
+		iconUrl: "icons/refresh-cw.svg"
+	}
 }

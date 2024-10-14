@@ -1,4 +1,4 @@
-<div class="role-table-frame">
+<div class="role-list-frame">
 	<div class="role-list-control-top">
 		<div class="role-list-control-top-section-1">
 			<div class="result-size-container font-s15">
@@ -17,6 +17,12 @@
 				<input id="role-search-box" (keydown)="searchRole($event)" [formControlName]="'roleName'" class="font-s15" placeholder="Search role" type="text">
 				<button (click)="searchRole()" [matRippleColor]="'rgba(115, 115, 115, 0.5)'" id="role-search-btn" matRipple>
 					<mat-icon [svgIcon]="IconProvider.SEARCH.iconName" class="icon-28"></mat-icon>
+				</button>
+			</div>
+
+			<div class="role-refresh-btn-container">
+				<button (click)="refreshRoleList()" [matRippleColor]="'rgba(115, 115, 115, 0.5)'" id="role-refresh-btn" matRipple>
+					<mat-icon [svgIcon]="IconProvider.REFRESH.iconName" class="icon-28"></mat-icon>
 				</button>
 			</div>
 		</div>

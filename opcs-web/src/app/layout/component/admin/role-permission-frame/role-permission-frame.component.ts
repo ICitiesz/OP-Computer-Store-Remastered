@@ -68,6 +68,7 @@ export class RolePermissionFrameComponent implements OnInit {
 	) {
 		registerIcon(IconProvider.LEFT_ARROW)
 		registerIcon(IconProvider.RIGHT_ARROW)
+		registerIcon(IconProvider.REFRESH)
 
 		this.roleSearchFormGroup = this.formBuilder.nonNullable.group({
 			roleName: ['']
@@ -90,6 +91,8 @@ export class RolePermissionFrameComponent implements OnInit {
 		let roleSearchFormGroupValue = this.roleSearchFormGroup.value
 
 		if (roleSearchFormGroupValue === undefined) return
+
+		if (roleSearchFormGroupValue.roleName!.length <= 0) return
 
 		this.roleSearch.roleName = roleSearchFormGroupValue.roleName!
 
@@ -218,8 +221,6 @@ export class RolePermissionFrameComponent implements OnInit {
 			pageIndexEnd = (pageIndexStart - 1) + this.pageNumberListSize
 		}
 
-		//this.pageIndexList = Array.from({length: pageIndexEnd - pageIndexStart + 1}, (_ :number, index) => pageIndexStart + index)
-
 		for (let i = pageIndexStart; i <= pageIndexEnd; i++) {
 			this.pageIndexList.push(i)
 		}
@@ -236,6 +237,13 @@ export class RolePermissionFrameComponent implements OnInit {
 			this.firstItemCount = this.lastItemCount - (this.totalItemsPerPage - 1)
 		}
 
+	}
+
+	protected refreshRoleList(): void {
+		this.roleSearchFormGroup.reset()
+		this.roleSearch.roleName = ""
+		this.currentPage = 1
+		this.sendQueryPageRequest()
 	}
 
 	private tryParseNumber(value: any): number {

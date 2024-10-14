@@ -133,3 +133,12 @@ mat-dialog-content {
 .permission-dialog-action-container button:hover {
 	background: rgba(154, 154, 154, 0.7);
 }
+
+.permission-empty-container {
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	padding-block: 100px;
+	height: 100%;
+	align-items: center;
+}

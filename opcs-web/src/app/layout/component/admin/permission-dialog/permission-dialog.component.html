@@ -5,13 +5,21 @@
 <mat-dialog-content>
 	<div class="permission-body">
 		<div class="permission-search">
-			<input [ngStyle]="{'--search-icon': 'url(' + IconProvider.SEARCH.iconUrl + ')'}" (input)="onSearchPermission($event)" id="permission-search-box"
+			<input #permissionSearch [ngStyle]="{'--search-icon': 'url(' + IconProvider.SEARCH.iconUrl + ')'}" (input)="onSearchPermission($event)" id="permission-search-box"
 				   placeholder="Search permission..." type="text">
 		</div>
 
 		<div class="permission-content">
+			<div *ngIf="permissions.length <= 0 && permissionSearch.value.length > 0" class="permission-empty-container">
+				<span class="font-s30 font-w550">No such permission as '{{permissionSearch.value}}'.</span>
+			</div>
+
+			<div *ngIf="permissions.length <= 0 && permissionSearch.value.length == 0" class="permission-empty-container">
+				<span class="font-s30 font-w550">Permission unavailable!</span>
+			</div>
+
 			<div class="permission-list-item font-s15" *ngFor="let permission of permissions">
-				<p style="margin: 0;">{{ permission.permissionName }}</p>
+				<p>{{ permission.permissionName }}</p>
 				<mat-slide-toggle
 					[hideIcon]="true"
 					(change)="onPermissionToggle(permission, $event)"
