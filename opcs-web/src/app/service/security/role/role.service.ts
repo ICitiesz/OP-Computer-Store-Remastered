@@ -6,8 +6,7 @@ import {RoleModel} from "../../../model/security/role.model";
 import {PaginationRequestModel} from "../../../model/pagination/pagination.request.model";
 import {QueryRoleSort} from "../../../model/pagination/sort/query-role.sort";
 import {PaginationResponseModel} from "../../../model/pagination/pagination.response.model";
-import {PermissionModel} from "../../../model/security/permission.model";
-import {RolePermissionModel} from "../../../model/security/role-permission.model";
+import {QueryRoleSearch} from "../../../model/pagination/search/security/query-role.search";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +14,7 @@ import {RolePermissionModel} from "../../../model/security/role-permission.model
 export class RoleService {
 	constructor(private apiRequestClient: ApiRequestClient) { }
 
-	queryRole(url: string, pageReqModel: PaginationRequestModel<any, QueryRoleSort>): Observable<ApiResponse<PaginationResponseModel<RoleModel>>> {
+	queryRole(url: string, pageReqModel: PaginationRequestModel<QueryRoleSearch, QueryRoleSort>): Observable<ApiResponse<PaginationResponseModel<RoleModel>>> {
 		return this.apiRequestClient.post(
 			url,
 			pageReqModel,

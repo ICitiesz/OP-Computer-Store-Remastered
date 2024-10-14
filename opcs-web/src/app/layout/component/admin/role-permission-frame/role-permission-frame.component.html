@@ -1,7 +1,7 @@
 <div class="role-table-frame">
 	<div class="role-list-control-top">
 		<div class="role-list-control-top-section-1">
-			<div class="result-size-container">
+			<div class="result-size-container font-s15">
 				<p>Show</p>
 
 				<select id="result-size-select" (change)="updateRoleDisplaySize($event)">
@@ -13,9 +13,9 @@
 				<p>items</p>
 			</div>
 
-			<div class="role-search-container">
-				<input id="role-search-box" placeholder="Search role" type="text">
-				<button [matRippleColor]="'rgba(115, 115, 115, 0.5)'" id="role-search-btn" matRipple>
+			<div class="role-search-container" [formGroup]="roleSearchFormGroup">
+				<input id="role-search-box" (keydown)="searchRole($event)" [formControlName]="'roleName'" class="font-s15" placeholder="Search role" type="text">
+				<button (click)="searchRole()" [matRippleColor]="'rgba(115, 115, 115, 0.5)'" id="role-search-btn" matRipple>
 					<mat-icon [svgIcon]="IconProvider.SEARCH.iconName" class="icon-28"></mat-icon>
 				</button>
 			</div>
@@ -31,34 +31,40 @@
 	<div class="main-content-container">
 		<div class="main-content list-group">
 			<div class="list-group-header">
-				<div class="list-group-header-item">
+				<div class="list-group-header-item font-s17">
 					Role
 				</div>
-				<div class="list-group-header-item">
+				<div class="list-group-header-item font-s17">
 					Creation Date
 				</div>
-				<div class="list-group-header-item">
+				<div class="list-group-header-item font-s17">
 					Assigned User
 				</div>
 			</div>
 
 			<div class="list-group-body" >
-				<button *ngFor="let role of roles" (click)="openRolePermissionDialog({'role': role, 'permissions': permissions})" class="list-group-body-item list-group-item" type="button">
-					<div class="list-group-body-item-detail">{{ role.roleName }}</div>
-					<div class="list-group-body-item-detail">{{ DateTimeUtils.toUserLocalDate(role.createdDate) }}</div>
-					<div class="list-group-body-item-detail">[AssignedMemberCount]</div>
+				<!-- TODO: Temp. store phrase for future use | Nothing matches your search at the moment. -->
+				<div *ngIf="firstItemCount <= 0" class="role-not-found-container">
+					<span class="font-s30 font-w550">We couldn't find anything for your query.</span>
+				</div>
+				<button *ngFor="let role of roles" (click)="openRolePermissionDialog({'role': role, 'permissions': permissions})"
+						class="list-group-body-item" type="button">
+					<div class="list-group-body-item-detail font-s15-5">{{ role.roleName }}</div>
+					<div class="list-group-body-item-detail font-s15-5">{{ DateTimeUtils.toUserLocalDate(role.createdDate) }}</div>
+					<div class="list-group-body-item-detail font-s15-5">[AssignedMemberCount]</div>
 				</button>
 			</div>
 		</div>
 
 		<div class="role-list-control-bottom">
 			<div>
-				<span>Showing: {{ firstItemCount }} ~ {{ lastItemCount }} of {{ totalItems }} items</span>
+				<span *ngIf="firstItemCount > 0" class="font-s15">Showing: {{ firstItemCount }} ~ {{ lastItemCount }} of {{ totalItems }} items</span>
+				<span *ngIf="firstItemCount <= 0" class="font-s15">Showing: {{ firstItemCount }} of {{ totalItems }} items</span>
 			</div>
 
 			<div class="role-list-control-bottom-section-2">
-				<div class="pagination-container">
-					<div class="page-nav-left-container">
+				<div *ngIf="firstItemCount > 0" class="pagination-container">
+					<div class="page-nav-left-container font-s15">
 						<a class="page-nav-control" (click)="navigatePage('previous')">
 							<mat-icon [svgIcon]="IconProvider.LEFT_ARROW.iconName" class="icon-28 align-middle"></mat-icon>
 						</a>
@@ -69,10 +75,10 @@
 					</div>
 
 					<div *ngFor="let value of pageIndexList" class="page-index-list-container">
-						<a [ngStyle]="this.currentPage === value ? {'background': 'rgba(154, 154, 154, 0.7)', 'transition': '0.2s background ease-in-out' } : {}" (click)="navigateToPage($event)" >{{value}}</a>
+						<a class="font-s15" [ngStyle]="this.currentPage === value ? {'background': 'rgba(154, 154, 154, 0.7)', 'transition': '0.2s background ease-in-out' } : {}" (click)="navigateToPage($event)" >{{value}}</a>
 					</div>
 
-					<div class="page-nav-right-container">
+					<div class="page-nav-right-container font-s15">
 						<span *ngIf="showEllipsis('end')">...</span>
 
 						<a *ngIf="pageIndexList[pageIndexList.length - 1] !== totalPages" (click)="navigateToPage($event)">{{totalPages}}</a>

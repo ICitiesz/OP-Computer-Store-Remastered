@@ -1,4 +1,4 @@
-<div style="background: skyblue; display: flex; padding-block: 10px; padding-left: 20px">
+<div class="permission-header">
 	<h6 style="margin: 0;">Manage Permission | {{ roleName }}</h6>
 </div>
 
@@ -10,14 +10,18 @@
 		</div>
 
 		<div class="permission-content">
-			<div class="permission-list-item" *ngFor="let permission of permissions">
+			<div class="permission-list-item font-s15" *ngFor="let permission of permissions">
 				<p style="margin: 0;">{{ permission.permissionName }}</p>
-				<mat-slide-toggle [hideIcon]="true" (change)="onPermissionToggle(permission, $event)" [checked]="updateTogglePermission(permission)" class="permission-toggle"></mat-slide-toggle>
+				<mat-slide-toggle
+					[hideIcon]="true"
+					(change)="onPermissionToggle(permission, $event)"
+					[checked]="updateTogglePermission(permission)"
+					class="permission-toggle"></mat-slide-toggle>
 			</div>
 		</div>
 	</div>
 </mat-dialog-content>
-<mat-dialog-actions align="center" style="display: flex; justify-content: space-around">
+<mat-dialog-actions class="permission-dialog-action-container font-s17" align="center">
 	<button (click)="closePermissionDialog()" type="button">Cancel</button>
 	<button (click)="saveRolePermission()" type="button">Save</button>
 </mat-dialog-actions>

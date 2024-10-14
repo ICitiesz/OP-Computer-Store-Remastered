@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using opcs.App.Data.Dto.Pagination;
+using opcs.App.Data.Dto.Pagination.Search;
 using opcs.App.Data.Dto.Pagination.Sort;
 using opcs.App.Database;
 using opcs.App.Entity.Security;
@@ -56,11 +57,18 @@ public class RoleRepository(AppDbContext dbContext) : IRoleRepository
         return !roles.IsNullOrEmpty() ? roles.First() : null;
     }
 
-    public async Task<(List<Role>, int)> QueryRole(PaginationRequestDto<object, QueryRoleSort> requestDto)
+    public async Task<(List<Role>, int)> QueryRole(PaginationRequestDto<QueryRoleSearch, QueryRoleSort> requestDto)
     {
+        var search = requestDto.Search;
         var sorts = requestDto.Sort;
         var sqlQuery = dbContext.Role.AsNoTracking();
-        var totalRoleCount = await sqlQuery.CountAsync();
+
+        if (!search.RoleName.IsNullOrEmpty())
+        {
+            sqlQuery = sqlQuery
+                .Where(role =>
+                    EF.Functions.Like(role.RoleName, $"%{requestDto.Search.RoleName}%"));
+        }
 
         sqlQuery = sorts.RoleNameDesc switch
         {
@@ -72,6 +80,8 @@ public class RoleRepository(AppDbContext dbContext) : IRoleRepository
                 .OrderByDescending(role => role.RoleName.Length)
                 .ThenByDescending(role => role.RoleName)
         };
+
+        var totalRoleCount = await sqlQuery.CountAsync();
 
         var roles = await sqlQuery
             .Skip((requestDto.CurrentPage - 1) * requestDto.TotalItemsPerPage)

@@ -1,5 +1,6 @@
 using LanguageExt;
 using opcs.App.Data.Dto.Pagination;
+using opcs.App.Data.Dto.Pagination.Search;
 using opcs.App.Data.Dto.Pagination.Sort;
 using opcs.App.Data.Dto.Security.Permission;
 using opcs.App.Data.Dto.Security.Role;
@@ -40,7 +41,7 @@ public class RoleService(
         return userRole is not null ? ObjectMapper.GetMapper().Map<RoleDto>(userRole) : new Option<RoleDto>();
     }
 
-    public PaginationResponseDto<RoleDto> QueryRole(PaginationRequestDto<object, QueryRoleSort> requestDto)
+    public PaginationResponseDto<RoleDto> QueryRole(PaginationRequestDto<QueryRoleSearch, QueryRoleSort> requestDto)
     {
         var roles = roleRepository.QueryRole(requestDto).Result;
         var remappedRoles = ObjectMapper.GetMapper().Map<List<RoleDto>>(roles.Item1);

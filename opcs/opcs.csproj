@@ -74,8 +74,4 @@
         <_ContentIncludedByDefault Remove="obj\project.packagespec.json"/>
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="App\Data\Dto\Pagination\Search\" />
-    </ItemGroup>
-
 </Project>

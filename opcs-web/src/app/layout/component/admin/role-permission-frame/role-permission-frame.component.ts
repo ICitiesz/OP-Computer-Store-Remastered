@@ -4,7 +4,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatOption, MatRippleModule} from "@angular/material/core";
 import {MatSelect} from "@angular/material/select";
 import {NgbDropdown, NgbDropdownItem, NgbDropdownMenu, NgbDropdownToggle} from "@ng-bootstrap/ng-bootstrap";
-import {FormsModule} from "@angular/forms";
+import {FormBuilder, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {PermissionDialogComponent} from "../permission-dialog/permission-dialog.component";
 import {RoleController} from "../../../../controller/security/role.controller";
@@ -14,6 +14,8 @@ import {PermissionController} from "../../../../controller/security/permission.c
 import {PermissionModel} from "../../../../model/security/permission.model";
 import {registerIcon} from "../../../../core/utils/resource-resolve.utils";
 import {DateTimeUtils} from "../../../../core/utils/date-time.utils";
+import {IFormGroup} from "../../../../utils/type/i-form-group";
+import {QueryRoleSearch} from "../../../../model/pagination/search/security/query-role.search";
 
 @Component({
 	selector: 'app-role-permission-frame',
@@ -33,7 +35,8 @@ import {DateTimeUtils} from "../../../../core/utils/date-time.utils";
 		JsonPipe,
 		AsyncPipe,
 		NgForOf,
-		NgStyle
+		NgStyle,
+		ReactiveFormsModule
 	],
 	templateUrl: './role-permission-frame.component.html',
 	styleUrl: './role-permission-frame.component.scss'
@@ -46,23 +49,29 @@ export class RolePermissionFrameComponent implements OnInit {
 	protected permissions!: Array<PermissionModel>
 
 	/* Pagination properties */
-	protected roleSearch = ""
+	private pageNumberListSize = 5
+	protected roleSearch: QueryRoleSearch = { roleName: "" }
+	protected roleSearchFormGroup: IFormGroup<QueryRoleSearch>
 	protected totalItemsPerPage: number = 10
 	protected totalItems!: number
-	protected currentPage: number = 1
+	protected currentPage: number = 0
 	protected totalPages!: number
-	private pageNumberListSize = 5
-	protected firstItemCount = 1
+	protected firstItemCount = 0
 	protected lastItemCount = 10
 	protected pageIndexList: number[] = Array()
 
 	constructor(
 		private matDialog: MatDialog,
 		private roleController: RoleController,
-		private permissionController: PermissionController
+		private permissionController: PermissionController,
+		private formBuilder: FormBuilder
 	) {
 		registerIcon(IconProvider.LEFT_ARROW)
 		registerIcon(IconProvider.RIGHT_ARROW)
+
+		this.roleSearchFormGroup = this.formBuilder.nonNullable.group({
+			roleName: ['']
+		})
 	}
 
 	ngOnInit(): void {
@@ -71,6 +80,22 @@ export class RolePermissionFrameComponent implements OnInit {
 		this.permissionController.getAllPermission().subscribe(response => {
 			this.permissions = response
 		})
+	}
+
+	protected searchRole(e?: Event): void {
+		if (e !== undefined) {
+			if ((e as KeyboardEvent).code !== "Enter") return
+		}
+
+		let roleSearchFormGroupValue = this.roleSearchFormGroup.value
+
+		if (roleSearchFormGroupValue === undefined) return
+
+		this.roleSearch.roleName = roleSearchFormGroupValue.roleName!
+
+		this.currentPage = 1
+
+		this.sendQueryPageRequest()
 	}
 
 	protected openRolePermissionDialog(data: any): void {
@@ -202,31 +227,16 @@ export class RolePermissionFrameComponent implements OnInit {
 
 	private updateShownItemCount(): void {
 		this.lastItemCount = this.currentPage === this.totalPages ? this.totalItems : this.roles.length * this.currentPage
-		this.firstItemCount = this.roles.length < this.totalItemsPerPage ? this.lastItemCount - (this.roles.length - (this.totalItemsPerPage - this.roles.length)) : this.lastItemCount - (this.totalItemsPerPage - 1)
-	}
 
-	// protected showPageNumber(pageIndex: number) {
-	// 	let currentPagePointer = (this.currentPage) / 10
-	// 	let pageIndexPointer = pageIndex / 10
-	// 	let pageRangeStart = Math.floor(currentPagePointer)
-	// 	let pageRangeEnd = Math.ceil(currentPagePointer)
-	//
-	// 	// console.log("Current Page Index: " + pageIndex)
-	// 	// console.log("Current Page: " + this.currentPage)
-	// 	// console.log("PageIndexPointer: " + pageIndexPointer)
-	// 	// console.log("currentPagePointer: " + currentPagePointer)
-	// 	// console.log("Ceil: " + pageRangeStart)
-	// 	// console.log("Floor: " + pageRangeEnd)
-	//
-	// 	// guiItemIndex = maxItemPerPage * guiPageIndex + index
-	// 	// newPageIndex = 10 * pageIndex +
-	//
-	// 	if (pageRangeStart === pageRangeEnd) {
-	// 		return pageIndexPointer <= currentPagePointer
-	// 	}
-	//
-	// 	return (pageIndexPointer > pageRangeStart && pageIndexPointer <= pageRangeEnd)
-	// }
+		if (this.roles.length <= 0) {
+			this.firstItemCount = 0
+		} else if (this.roles.length < this.totalItemsPerPage) {
+			this.firstItemCount = (this.lastItemCount - this.roles.length) + 1
+		} else {
+			this.firstItemCount = this.lastItemCount - (this.totalItemsPerPage - 1)
+		}
+
+	}
 
 	private tryParseNumber(value: any): number {
 		try {

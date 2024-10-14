@@ -10,6 +10,7 @@ import {RolePermissionModel} from "../../../../model/security/role-permission.mo
 import {StringUtils} from "../../../../core/utils/string.utils";
 import {PermissionController} from "../../../../controller/security/permission.controller";
 import {UpdateRolePermissionRequestModel} from "../../../../model/security/update-role-permission.request.model";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
 	selector: 'app-permission-dialog',
@@ -32,6 +33,7 @@ export class PermissionDialogComponent implements OnInit {
 		private matDialog: MatDialogRef<PermissionDialogComponent>,
 		@Inject(MAT_DIALOG_DATA)private data: any,
 		private permissionController: PermissionController,
+		private matSnackbar: MatSnackBar
 	) {
 		this.roleId = data["role"].roleId
 		this.roleName = data["role"].roleName;
@@ -53,6 +55,23 @@ export class PermissionDialogComponent implements OnInit {
 
 	protected closePermissionDialog(): void {
 		this.matDialog.close();
+	}
+
+	protected notifyPermissionSave(isSuccess: boolean): void {
+		let notifyMessage
+
+		if (isSuccess) {
+			notifyMessage = "Permissions updated successfully!"
+		} else {
+			notifyMessage = "Failed to update permissions!"
+		}
+
+		this.matSnackbar.open(notifyMessage, "Close", {
+			panelClass: ['permission-save-notification'],
+			horizontalPosition: "center",
+			verticalPosition: "top",
+			duration: 3000
+		}).afterOpened()
 	}
 
 	/**
@@ -142,7 +161,16 @@ export class PermissionDialogComponent implements OnInit {
 			revokedPermissions: this.revokedPermissions
 		}
 
-		this.permissionController.updateRolePermission(request).subscribe()
+		this.permissionController.updateRolePermission(request).subscribe(
+			response => {
+				if (response.statusCode === 200) {
+					this.notifyPermissionSave(true)
+					return
+				}
+
+				this.notifyPermissionSave(false)
+			}
+		)
 		this.closePermissionDialog()
 	}
 }

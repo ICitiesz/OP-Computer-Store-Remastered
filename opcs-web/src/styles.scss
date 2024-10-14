@@ -23,3 +23,29 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   width: 28px !important;
   height: 28px !important;
 }
+
+.font-s15 {
+	font-size: 15px !important;
+}
+
+.font-s15-5 {
+	font-size: 15.5px !important;
+}
+
+.font-s17 {
+	font-size: 17px !important;
+}
+
+.font-s30 {
+	font-size: 20px !important;
+}
+
+.font-w550 {
+	font-weight: 550 !important;
+}
+
+:root   {
+	.permission-save-notification.mat-mdc-snack-bar-container {
+		--mdc-snackbar-container-color: #676767 !important;
+	}
+}

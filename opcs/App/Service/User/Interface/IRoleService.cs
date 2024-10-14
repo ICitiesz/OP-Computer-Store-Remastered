@@ -1,5 +1,6 @@
 using LanguageExt;
 using opcs.App.Data.Dto.Pagination;
+using opcs.App.Data.Dto.Pagination.Search;
 using opcs.App.Data.Dto.Pagination.Sort;
 using opcs.App.Data.Dto.Security.Permission;
 using opcs.App.Data.Dto.Security.Role;
@@ -16,5 +17,5 @@ public interface IRoleService
 
     Option<RoleDto> GetUserRole(string userId);
 
-    PaginationResponseDto<RoleDto> QueryRole(PaginationRequestDto<object, QueryRoleSort> requestDto);
+    PaginationResponseDto<RoleDto> QueryRole(PaginationRequestDto<QueryRoleSearch, QueryRoleSort> requestDto);
 }
