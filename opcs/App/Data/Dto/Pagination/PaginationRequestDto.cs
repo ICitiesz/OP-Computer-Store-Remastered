@@ -3,15 +3,14 @@ using opcs.App.Core.Attribute;
 
 namespace opcs.App.Data.Dto.Pagination;
 
-public record PaginationRequestDto<TSearch, TSort>
+public record PaginationRequestDto<TSearch>
 (
     TSearch Search,
-
-    [Required, AssertNotLess(errorSetDefault: true, targetValue: 1)]
+    [Required]
+    [AssertNotLess(errorSetDefault: true, targetValue: 1)]
     int CurrentPage,
-
-    [Required, AssertInCollection(errorSetDefault: true, collection: [10, 25, 50])]
+    [Required]
+    [AssertInCollection(errorSetDefault: true, collection: [10, 25, 50])]
     int TotalItemsPerPage,
-
-    TSort Sort
-);
+    [Required]
+    QuerySort Sort);

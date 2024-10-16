@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using opcs.App.Data.Dto.Pagination;
 using opcs.App.Data.Dto.Pagination.Search;
-using opcs.App.Data.Dto.Pagination.Sort;
 using opcs.App.Database;
 using opcs.App.Entity.Security;
 using opcs.App.Repository.User.Interface;
@@ -57,7 +56,7 @@ public class RoleRepository(AppDbContext dbContext) : IRoleRepository
         return !roles.IsNullOrEmpty() ? roles.First() : null;
     }
 
-    public async Task<(List<Role>, int)> QueryRole(PaginationRequestDto<QueryRoleSearch, QueryRoleSort> requestDto)
+    public async Task<(List<Role>, int)> QueryRole(PaginationRequestDto<QueryRoleSearch> requestDto)
     {
         var search = requestDto.Search;
         var sorts = requestDto.Sort;
@@ -70,16 +69,33 @@ public class RoleRepository(AppDbContext dbContext) : IRoleRepository
                     EF.Functions.Like(role.RoleName, $"%{requestDto.Search.RoleName}%"));
         }
 
-        sqlQuery = sorts.RoleNameDesc switch
-        {
-            false => sqlQuery
-                .OrderBy(role => role.RoleName.Length)
-                .ThenBy(role => role.RoleId),
+        Console.WriteLine($"Sort: {sorts.SortBy} | {sorts.Descending}");
 
-            true => sqlQuery
-                .OrderByDescending(role => role.RoleName.Length)
-                .ThenByDescending(role => role.RoleName)
-        };
+        switch (sorts.SortBy)
+        {
+            case "roleName": {
+                if (sorts.Descending)
+                {
+                    sqlQuery = sqlQuery.OrderByDescending(role => role.RoleName);
+                    break;
+                }
+
+                sqlQuery = sqlQuery.OrderBy(role => role.RoleName);
+                break;
+            }
+
+            case "createdDate":
+            {
+                if (sorts.Descending)
+                {
+                    sqlQuery = sqlQuery.OrderByDescending(role => role.CreatedAt);
+                    break;
+                }
+
+                sqlQuery = sqlQuery.OrderBy(role =>role.CreatedAt);
+                break;
+            }
+        }
 
         var totalRoleCount = await sqlQuery.CountAsync();
 

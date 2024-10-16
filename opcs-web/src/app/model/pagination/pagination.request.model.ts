@@ -1,6 +1,8 @@
-export interface PaginationRequestModel<TSearch, TSort> {
+import {QuerySortModel} from "./sort/query-sort.model";
+
+export interface PaginationRequestModel<TSearch> {
 	search: TSearch,
 	currentPage: number,
 	totalItemsPerPage: number,
-	sort: TSort,
+	sort: QuerySortModel,
 }

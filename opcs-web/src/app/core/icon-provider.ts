@@ -47,6 +47,16 @@ export class IconProvider {
 		iconUrl: "icons/chevron-right.svg"
 	}
 
+	static readonly UP_ARROW: IconHolder = {
+		iconName: "up_arrow",
+		iconUrl: "icons/chevron-up.svg"
+	}
+
+	static readonly DOWN_ARROW: IconHolder = {
+		iconName: "down_arrow",
+		iconUrl: "icons/chevron-down.svg"
+	}
+
 	static readonly REFRESH: IconHolder = {
 		iconName: "refresh",
 		iconUrl: "icons/refresh-cw.svg"

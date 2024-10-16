@@ -1,5 +1,5 @@
 export class StringUtils {
-	static startWith = (str1: string, str2: string, ignoreCase: boolean = true): boolean => {
+	static startWith(str1: string, str2: string, ignoreCase: boolean = true): boolean {
 		let regex
 
 		if (ignoreCase) {
@@ -11,7 +11,7 @@ export class StringUtils {
 		return regex.test(str1)
 	}
 
-	static containsString = (str1: string, str2: string, ignoreCase: boolean = true): boolean => {
+	static containsString(str1: string, str2: string, ignoreCase: boolean = true): boolean {
 		let regex
 
 		if (ignoreCase) {

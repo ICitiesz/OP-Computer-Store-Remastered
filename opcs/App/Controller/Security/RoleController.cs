@@ -6,7 +6,6 @@ using opcs.App.Core.Security;
 using opcs.App.Data;
 using opcs.App.Data.Dto.Pagination;
 using opcs.App.Data.Dto.Pagination.Search;
-using opcs.App.Data.Dto.Pagination.Sort;
 using opcs.App.Service.User.Interface;
 using opcs.Resources;
 
@@ -39,7 +38,9 @@ public class RoleController(
     }
 
     [HttpPost("queryPage")]
-    public IActionResult QueryRole([FromBody] PaginationRequestDto<QueryRoleSearch, QueryRoleSort> requestDto)
+    public IActionResult QueryRole(
+        [FromBody, AssertSortField<QueryRoleSearch>(QuerySortField.SortFieldEnum.RoleSortField)]
+        PaginationRequestDto<QueryRoleSearch> requestDto)
     {
         return new Response
         {

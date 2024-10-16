@@ -13,9 +13,14 @@ import {RoleModel} from "../../../../model/security/role.model";
 import {PermissionController} from "../../../../controller/security/permission.controller";
 import {PermissionModel} from "../../../../model/security/permission.model";
 import {registerIcon} from "../../../../core/utils/resource-resolve.utils";
-import {DateTimeUtils} from "../../../../core/utils/date-time.utils";
 import {IFormGroup} from "../../../../utils/type/i-form-group";
 import {QueryRoleSearch} from "../../../../model/pagination/search/security/query-role.search";
+import {ISorter} from "../../../../core/pagination/query-sort/i-sorter";
+import {QuerySortModel} from "../../../../model/pagination/sort/query-sort.model";
+import {SortField} from "../../../../core/pagination/query-sort/sort-field";
+import {SortOrder} from "../../../../core/pagination/query-sort/sort-order";
+import {RoleSortField} from "../../../../model/pagination/sort/sort-field/security/role.sort-field";
+import {DateTimeUtils} from "../../../../core/utils/date-time.utils";
 
 @Component({
 	selector: 'app-role-permission-frame',
@@ -41,8 +46,10 @@ import {QueryRoleSearch} from "../../../../model/pagination/search/security/quer
 	templateUrl: './role-permission-frame.component.html',
 	styleUrl: './role-permission-frame.component.scss'
 })
-export class RolePermissionFrameComponent implements OnInit {
+export class RolePermissionFrameComponent implements OnInit, ISorter {
 	protected readonly IconProvider = IconProvider;
+	protected readonly RoleSortField = RoleSortField;
+	protected readonly SortOrder = SortOrder;
 	protected readonly DateTimeUtils = DateTimeUtils;
 
 	protected roles!: Array<RoleModel>
@@ -59,6 +66,10 @@ export class RolePermissionFrameComponent implements OnInit {
 	protected firstItemCount = 0
 	protected lastItemCount = 10
 	protected pageIndexList: number[] = Array()
+	protected roleSort: QuerySortModel = {
+		sortBy: "",
+		descending: false
+	}
 
 	constructor(
 		private matDialog: MatDialog,
@@ -69,6 +80,8 @@ export class RolePermissionFrameComponent implements OnInit {
 		registerIcon(IconProvider.LEFT_ARROW)
 		registerIcon(IconProvider.RIGHT_ARROW)
 		registerIcon(IconProvider.REFRESH)
+		registerIcon(IconProvider.UP_ARROW)
+		registerIcon(IconProvider.DOWN_ARROW)
 
 		this.roleSearchFormGroup = this.formBuilder.nonNullable.group({
 			roleName: ['']
@@ -82,6 +95,41 @@ export class RolePermissionFrameComponent implements OnInit {
 			this.permissions = response
 		})
 	}
+
+	sort(sortField: SortField): void {
+		this.roleSort.sortBy = sortField.toString()
+		this.roleSort.descending = !this.roleSort.descending
+		this.sendQueryPageRequest()
+	}
+
+	updateSortIndicator(sortField: SortField, sortOrder: SortOrder): object {
+		if (this.roleSort.sortBy !== sortField) return {}
+
+		switch (this.roleSort.descending) {
+			case true: {
+				if (sortOrder === SortOrder.DESC) return {}
+				break
+			}
+
+			case false: {
+				if (sortOrder === SortOrder.ASC) return {}
+				break
+			}
+		}
+
+		return { 'opacity': '0.3' }
+	}
+
+	resetSort(): void {
+		this.roleSort.sortBy = ""
+		this.roleSort.descending = false
+	}
+
+	protected resetSearch(): void {
+		this.roleSearchFormGroup.reset()
+		this.roleSearch.roleName = ""
+	}
+
 
 	protected searchRole(e?: Event): void {
 		if (e !== undefined) {
@@ -97,6 +145,8 @@ export class RolePermissionFrameComponent implements OnInit {
 		this.roleSearch.roleName = roleSearchFormGroupValue.roleName!
 
 		this.currentPage = 1
+
+		this.resetSort()
 
 		this.sendQueryPageRequest()
 	}
@@ -179,9 +229,7 @@ export class RolePermissionFrameComponent implements OnInit {
 			search: this.roleSearch,
 			currentPage: this.currentPage,
 			totalItemsPerPage: this.totalItemsPerPage,
-			sort: {
-				roleNameDesc: false
-			}
+			sort: this.roleSort
 		}).subscribe(response => {
 			console.log(response);
 			this.roles = response.items
@@ -236,13 +284,12 @@ export class RolePermissionFrameComponent implements OnInit {
 		} else {
 			this.firstItemCount = this.lastItemCount - (this.totalItemsPerPage - 1)
 		}
-
 	}
 
 	protected refreshRoleList(): void {
-		this.roleSearchFormGroup.reset()
-		this.roleSearch.roleName = ""
+		this.resetSearch()
 		this.currentPage = 1
+		this.resetSort()
 		this.sendQueryPageRequest()
 	}
 

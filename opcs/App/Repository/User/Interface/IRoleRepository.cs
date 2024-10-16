@@ -1,6 +1,5 @@
 using opcs.App.Data.Dto.Pagination;
 using opcs.App.Data.Dto.Pagination.Search;
-using opcs.App.Data.Dto.Pagination.Sort;
 using opcs.App.Entity.Security;
 
 namespace opcs.App.Repository.User.Interface;
@@ -17,5 +16,5 @@ public interface IRoleRepository
 
     Task<Role?> GetUserRole(string userId);
 
-    Task<(List<Role>, int)> QueryRole(PaginationRequestDto<QueryRoleSearch, QueryRoleSort> requestDto);
+    Task<(List<Role>, int)> QueryRole(PaginationRequestDto<QueryRoleSearch> requestDto);
 }

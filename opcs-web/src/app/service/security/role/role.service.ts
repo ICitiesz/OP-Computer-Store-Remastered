@@ -4,7 +4,6 @@ import {Observable} from "rxjs";
 import {ApiResponse} from "../../../model/api/api-response";
 import {RoleModel} from "../../../model/security/role.model";
 import {PaginationRequestModel} from "../../../model/pagination/pagination.request.model";
-import {QueryRoleSort} from "../../../model/pagination/sort/query-role.sort";
 import {PaginationResponseModel} from "../../../model/pagination/pagination.response.model";
 import {QueryRoleSearch} from "../../../model/pagination/search/security/query-role.search";
 
@@ -14,7 +13,7 @@ import {QueryRoleSearch} from "../../../model/pagination/search/security/query-r
 export class RoleService {
 	constructor(private apiRequestClient: ApiRequestClient) { }
 
-	queryRole(url: string, pageReqModel: PaginationRequestModel<QueryRoleSearch, QueryRoleSort>): Observable<ApiResponse<PaginationResponseModel<RoleModel>>> {
+	queryRole(url: string, pageReqModel: PaginationRequestModel<QueryRoleSearch>): Observable<ApiResponse<PaginationResponseModel<RoleModel>>> {
 		return this.apiRequestClient.post(
 			url,
 			pageReqModel,

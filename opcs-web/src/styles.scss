@@ -51,4 +51,8 @@ p {
 	.permission-save-notification.mat-mdc-snack-bar-container {
 		--mdc-snackbar-container-color: #676767 !important;
 	}
+
+	.role-sort-indicator-asc svg, .role-sort-indicator-dsc svg {
+		vertical-align: super !important;
+	}
 }

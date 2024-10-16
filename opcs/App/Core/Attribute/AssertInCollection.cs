@@ -4,7 +4,7 @@ using opcs.Resources;
 namespace opcs.App.Core.Attribute;
 
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Parameter)]
-public class AssertInCollection(string? errorMessage = null, bool errorSetDefault = false,params object[] collection) : ValidationAttribute
+public class AssertInCollection(string? errorMessage = null, bool errorSetDefault = false, params object[] collection) : ValidationAttribute
 {
     private readonly string _errorMessage = errorMessage ?? CodeMessages.opcs_error_request_value_not_found;
 

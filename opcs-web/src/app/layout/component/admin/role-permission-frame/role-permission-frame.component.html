@@ -37,14 +37,24 @@
 	<div class="main-content-container">
 		<div class="main-content list-group">
 			<div class="list-group-header">
-				<div class="list-group-header-item font-s17">
-					Role
+				<div class="list-group-header-item font-s17" style="position: relative" (click)="sort(RoleSortField.roleName)">
+					<span>Role</span>
+					<div class="role-sort-indicator-container">
+						<mat-icon class="role-sort-indicator-asc" [ngStyle]="updateSortIndicator(RoleSortField.roleName, SortOrder.ASC)" [svgIcon]="IconProvider.UP_ARROW.iconName"></mat-icon>
+						<mat-icon class="role-sort-indicator-dsc" [ngStyle]="updateSortIndicator(RoleSortField.roleName, SortOrder.DESC)" [svgIcon]="IconProvider.DOWN_ARROW.iconName"></mat-icon>
+					</div>
 				</div>
-				<div class="list-group-header-item font-s17">
-					Creation Date
+
+				<div class="list-group-header-item font-s17" style="position: relative" (click)="sort(RoleSortField.createdDate)">
+					<span>Creation Date</span>
+					<div class="role-sort-indicator-container">
+						<mat-icon class="role-sort-indicator-asc" [ngStyle]="updateSortIndicator(RoleSortField.createdDate, SortOrder.ASC)" [svgIcon]="IconProvider.UP_ARROW.iconName"></mat-icon>
+						<mat-icon class="role-sort-indicator-dsc" [ngStyle]="updateSortIndicator(RoleSortField.createdDate, SortOrder.DESC)" [svgIcon]="IconProvider.DOWN_ARROW.iconName"></mat-icon>
+					</div>
 				</div>
+
 				<div class="list-group-header-item font-s17">
-					Assigned User
+					<span>Assigned User</span>
 				</div>
 			</div>
 
